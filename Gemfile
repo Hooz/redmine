@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://gems.ruby-china.org'
 
 if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('1.5.0')
   abort "Redmine requires Bundler 1.5.0 or higher (you're using #{Bundler::VERSION}).\nPlease update with 'gem update bundler'."
@@ -26,6 +26,9 @@ gem "rails-html-sanitizer", ">= 1.0.3"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin]
 gem "rbpdf", "~> 1.19.2"
+
+# Server
+gem 'puma', '~> 3.0'
 
 # Optional gem for LDAP authentication
 group :ldap do
@@ -85,6 +88,12 @@ end
 group :development do
   gem "rdoc", "~> 4.3"
   gem "yard"
+
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 
 group :test do
