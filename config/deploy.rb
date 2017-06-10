@@ -6,7 +6,7 @@ set :repo_url, "git@github.com:Hooz/redmine.git"
 set :deploy_via, :export
 
 set :linked_files,
-  %w{config/database.yml config/environments/production.rb config/secrets.yml}
+  %w{config/database.yml config/environments/production.rb config/secrets.yml config/initializers/secret_token.rb}
 set :linked_dirs, %w{log}
 
 namespace :puma do
