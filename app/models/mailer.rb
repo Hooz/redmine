@@ -267,7 +267,7 @@ class Mailer < ActionMailer::Base
     set_language_if_valid user.language
     @user = user
     @password = password
-    @login_url = url_for(:controller => 'account', :action => 'login')
+    @login_url = url_for(:controller => 'account', :action => 'login', :host => root_url)
     Rails.logger.info "========"
     Rails.logger.info @login_url
     mail :to => user.mail,
