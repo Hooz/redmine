@@ -79,7 +79,7 @@ per_page_options:
 search_results_per_page:
   default: 10
 mail_from:
-  default: redmine@example.net
+  default: redmine@zyremix.com
 bcc_recipients:
   default: 1
 plain_text_mail:
