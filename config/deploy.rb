@@ -24,12 +24,6 @@ end
 
 namespace :deploy do
 desc 'Initial Deploy'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
-
   task :initial do
     on roles(:app) do
       before 'deploy:restart', 'puma:start'
@@ -37,13 +31,26 @@ desc 'Initial Deploy'
     end
   end
 
-  # desc 'Restart application'
-  # task :restart do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     invoke 'puma:restart'
-  #   end
-  # end
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      invoke 'puma:restart'
+    end
+  end
 
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
 end
+
+# namespace :assets do
+#   desc "assets:precompile"
+#   task :precompile do
+#   	on primary(:app) do
+#       within release_path do
+#         with rails_env: fetch(:rails_env) do
+#           execute :bundle, "exec rake assets:precompile"
+#         end
+#       end
+#     end
+#   end
+# end
