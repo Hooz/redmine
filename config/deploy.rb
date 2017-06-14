@@ -7,8 +7,8 @@ set :deploy_via, :export
 
 set :linked_files,
   %w{config/database.yml config/environments/production.rb config/secrets.yml config/initializers/secret_token.rb 
-    config/configuration.yml public/uploads public/plugins}
-set :linked_dirs, %w{log}
+    config/configuration.yml}
+set :linked_dirs, %w{log public/uploads public/plugins}
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
