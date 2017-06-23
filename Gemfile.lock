@@ -206,7 +206,7 @@ DEPENDENCIES
   mocha
   mysql2 (~> 0.4.6)
   net-ldap (~> 0.12.0)
-  nokogiri (>= 1.7.0)
+  nokogiri (~> 1.7.2)
   protected_attributes
   puma (~> 3.0)
   rack-openid
@@ -228,4 +228,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.12.5
+   1.15.1
