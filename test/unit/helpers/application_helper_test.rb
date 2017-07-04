@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -667,7 +667,7 @@ RAW
 
   def test_attachment_links
     text = 'attachment:error281.txt'
-    result = link_to("error281.txt", "/attachments/download/1/error281.txt",
+    result = link_to("error281.txt", "/attachments/1/error281.txt",
                      :class => "attachment")
     assert_equal "<p>#{result}</p>",
                  textilizable(text,
@@ -679,7 +679,7 @@ RAW
     set_tmp_attachments_directory
     a1 = Attachment.generate!(:filename => "test.txt", :created_on => 1.hour.ago)
     a2 = Attachment.generate!(:filename => "test.txt")
-    result = link_to("test.txt", "/attachments/download/#{a2.id}/test.txt",
+    result = link_to("test.txt", "/attachments/#{a2.id}/test.txt",
                      :class => "attachment")
     assert_equal "<p>#{result}</p>",
                  textilizable('attachment:test.txt', :attachments => [a1, a2])

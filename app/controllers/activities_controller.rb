@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@
 
 class ActivitiesController < ApplicationController
   menu_item :activity
-  before_action :find_optional_project
+  before_action :find_optional_project_by_id, :authorize_global
   accept_rss_auth :index
 
   def index
@@ -73,17 +73,6 @@ class ActivitiesController < ApplicationController
       end
     end
 
-  rescue ActiveRecord::RecordNotFound
-    render_404
-  end
-
-  private
-
-  # TODO: refactor, duplicated in projects_controller
-  def find_optional_project
-    return true unless params[:id]
-    @project = Project.find(params[:id])
-    authorize
   rescue ActiveRecord::RecordNotFound
     render_404
   end

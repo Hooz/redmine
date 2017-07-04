@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -354,7 +354,7 @@ class Mailer < ActionMailer::Base
       :subject => "[#{Setting.app_title}] #{l(:mail_subject_security_notification)}"
   end
 
-	# Notifies admins about settings changes
+  # Notifies admins about settings changes
   def self.security_settings_updated(changes)
     return unless changes.present?
 

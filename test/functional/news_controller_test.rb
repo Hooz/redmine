@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -45,6 +45,14 @@ class NewsControllerTest < Redmine::ControllerTest
         :project_id => 999
       }
     assert_response 404
+  end
+
+  def test_index_without_permission_should_fail
+    Role.all.each {|r| r.remove_permission! :view_news}
+    @request.session[:user_id] = 2
+
+    get :index
+    assert_response 403
   end
 
   def test_show

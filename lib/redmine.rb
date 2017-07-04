@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -42,7 +42,6 @@ require 'redmine/menu_manager'
 require 'redmine/notifiable'
 require 'redmine/platform'
 require 'redmine/mime_type'
-require 'redmine/notifiable'
 require 'redmine/search'
 require 'redmine/syntax_highlighting'
 require 'redmine/thumbnail'
@@ -86,6 +85,9 @@ Redmine::AccessControl.map do |map|
   map.permission :manage_members, {:projects => :settings, :members => [:index, :show, :new, :create, :edit, :update, :destroy, :autocomplete]}, :require => :member
   map.permission :manage_versions, {:projects => :settings, :versions => [:new, :create, :edit, :update, :close_completed, :destroy]}, :require => :member
   map.permission :add_subprojects, {:projects => [:new, :create]}, :require => :member
+  # Queries
+  map.permission :manage_public_queries, {:queries => [:new, :create, :edit, :update, :destroy]}, :require => :member
+  map.permission :save_queries, {:queries => [:new, :create, :edit, :update, :destroy]}, :require => :loggedin
 
   map.project_module :issue_tracking do |map|
     # Issues
@@ -110,9 +112,6 @@ Redmine::AccessControl.map do |map|
     map.permission :view_private_notes, {}, :read => true, :require => :member
     map.permission :set_notes_private, {}, :require => :member
     map.permission :delete_issues, {:issues => :destroy}, :require => :member
-    # Queries
-    map.permission :manage_public_queries, {:queries => [:new, :create, :edit, :update, :destroy]}, :require => :member
-    map.permission :save_queries, {:queries => [:new, :create, :edit, :update, :destroy]}, :require => :loggedin
     # Watchers
     map.permission :view_issue_watchers, {}, :read => true
     map.permission :add_issue_watchers, {:watchers => [:new, :create, :append, :autocomplete_for_user]}
@@ -213,10 +212,12 @@ Redmine::MenuManager.map :application_menu do |menu|
   menu.push :time_entries, {:controller => 'timelog', :action => 'index'},
     :if => Proc.new {User.current.allowed_to?(:view_time_entries, nil, :global => true)},
     :caption => :label_spent_time
-  menu.push :gantt, { :controller => 'gantts', :action => 'show' }, :caption => :label_gantt
-  menu.push :calendar, { :controller => 'calendars', :action => 'show' }, :caption => :label_calendar
-
+  menu.push :gantt, { :controller => 'gantts', :action => 'show' }, :caption => :label_gantt,
+    :if => Proc.new {User.current.allowed_to?(:view_gantt, nil, :global => true)}
+  menu.push :calendar, { :controller => 'calendars', :action => 'show' }, :caption => :label_calendar,
+    :if => Proc.new {User.current.allowed_to?(:view_calendar, nil, :global => true)}
   menu.push :news, {:controller => 'news', :action => 'index'},
+    :if => Proc.new {User.current.allowed_to?(:view_news, nil, :global => true)},
     :caption => :label_news_plural
 end
 
