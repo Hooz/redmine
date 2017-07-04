@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -42,10 +42,10 @@ class SearchControllerTest < Redmine::ControllerTest
     assert_select '#search-results dt.project a', :text => /eCookbook/
   end
 
-  def test_search_on_archived_project_should_return_404
+  def test_search_on_archived_project_should_return_403
     Project.find(3).archive
     get :index, :params => {:id => 3}
-    assert_response 404
+    assert_response 403
   end
 
   def test_search_on_invisible_project_by_user_should_be_denied

@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -579,7 +579,7 @@ class ProjectsControllerTest < Redmine::ControllerTest
     get :settings, :params => {
         :id => 1
       }
-    assert_response 302
+    assert_response 403
   end
 
   def test_setting_with_wiki_module_and_no_wiki
@@ -700,7 +700,7 @@ class ProjectsControllerTest < Redmine::ControllerTest
           :name => 'Closed'
         }
       }
-    assert_response 302
+    assert_response 403
     assert_equal 'eCookbook', Project.find(1).name
   end
 

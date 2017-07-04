@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -118,7 +118,7 @@ class Setting < ActiveRecord::Base
     setting.value
   end
 
-	# Updates multiple settings from params and sends a security notification if needed
+  # Updates multiple settings from params and sends a security notification if needed
   def self.set_all_from_params(settings)
     return nil unless settings.is_a?(Hash)
     settings = settings.dup.symbolize_keys

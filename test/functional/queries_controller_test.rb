@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2016  Jean-Philippe Lang
+# Copyright (C) 2006-2017  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -75,6 +75,17 @@ class QueriesControllerTest < Redmine::ControllerTest
       }
     assert_response :success
     assert_select 'input[name=type][value=?]', 'TimeEntryQuery'
+  end
+
+  def test_new_time_entry_query_with_issue_tracking_module_disabled_should_be_allowed
+    Project.find(1).disable_module! :issue_tracking
+
+    @request.session[:user_id] = 2
+    get :new, :params => {
+        :project_id => 1,
+        :type => 'TimeEntryQuery'
+      }
+    assert_response :success
   end
 
   def test_create_project_public_query
@@ -231,6 +242,31 @@ class QueriesControllerTest < Redmine::ControllerTest
     assert_response :success
 
     assert_select 'input[name=?]', 'query[name]'
+  end
+
+  def test_create_query_without_permission_should_fail
+    Role.all.each {|r| r.remove_permission! :save_queries, :manage_public_queries}
+
+    @request.session[:user_id] = 2
+    assert_no_difference '::Query.count' do
+      post :create, :params => {
+          :project_id => 'ecookbook',
+          :query => {:name => 'Foo'}
+        }
+    end
+    assert_response 403
+  end
+
+  def test_create_global_query_without_permission_should_fail
+    Role.all.each {|r| r.remove_permission! :save_queries, :manage_public_queries}
+
+    @request.session[:user_id] = 2
+    assert_no_difference '::Query.count' do
+      post :create, :params => {
+          :query => {:name => 'Foo'}
+        }
+    end
+    assert_response 403
   end
 
   def test_create_global_query_from_gantt
