@@ -372,16 +372,22 @@ table.messages td.last_message {text-align:left;}
   min-width: 1em;
 }
 
-table.query-columns {
-  border-collapse: collapse;
-  border: 0;
+.query-columns>span {
+  display:inline-block;
+  height:100%;
+  vertical-align: middle;
+}
+.query-columns label {
+  display:block;
+}
+.query-columns .buttons input[type=button] {
+  width:35px;
+  display:block;
+}
+.query-columns select {
+  width:150px;
 }
 
-table.query-columns td.buttons {
-  vertical-align: middle;
-  text-align: center;
-}
-table.query-columns td.buttons input[type=button] {width:35px;}
 .query-totals {text-align:right;}
 .query-totals>span:not(:first-child) {margin-left:0.6em;}
 .query-totals .value {font-weight:bold;}
@@ -494,7 +500,7 @@ div#issue-changesets {float:right; width:45%; margin-left: 1em; margin-bottom: 1
 div#issue-changesets div.changeset { padding: 4px;}
 div#issue-changesets div.changeset { border-bottom: 1px solid #ddd; }
 div#issue-changesets p { margin-top: 0; margin-bottom: 1em;}
-.changeset-comments {margin-bottom:1em; font-family:}
+.changeset-comments {margin-bottom:1em;}
 
 div.journal {overflow:auto;}
 div.journal.private-notes {border-left:2px solid #d22; padding-left:4px; margin-left:-6px;}
@@ -760,6 +766,7 @@ div.thumbnails {margin:0.6em;}
 div.thumbnails div {background:#fff;border:2px solid #ddd;display:inline-block;margin-right:2px;}
 div.thumbnails img {margin: 3px; vertical-align: middle;}
 #history div.thumbnails {margin-left: 2em;}
+#history div.highlight {background-color: #ddf;}
 
 p.other-formats { text-align: right; font-size:0.9em; color: #666; }
 .other-formats span + span:before { content: "| "; }
@@ -1279,7 +1286,7 @@ div.wiki img {vertical-align:middle; max-width:100%;}
 .icon-document { background-image: url(../images/document.png); }
 .icon-project { background-image: url(../images/projects.png); }
 .icon-add-bullet { background-image: url(../images/bullet_add.png); }
-.icon-shared { background-image: url(../images/link.png) };
+.icon-shared { background-image: url(../images/link.png); }
 
 .icon-file { background-image: url(../images/files/default.png); }
 .icon-file.text-plain { background-image: url(../images/files/text.png); }
@@ -1328,8 +1335,7 @@ div.gravatar-with-child > img.gravatar:nth-child(2) {
   border: 2px solid rgba(255, 255, 255, 0.9);
 }
 
-h2 img.gravatar {margin: -2px 4px -4px 0;}
-h3 img.gravatar {margin: -4px 4px -4px 0;}
+h2 img.gravatar, h3 img.gravatar {margin-right: 4px;}
 h4 img.gravatar {margin: -2px 4px -4px 0;}
 td.username img.gravatar {margin: 0 0.5em 0 0; vertical-align: top;}
 #activity dt img.gravatar {float: left; margin: 0 1em 1em 0;}

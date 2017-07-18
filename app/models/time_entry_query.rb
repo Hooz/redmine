@@ -23,6 +23,7 @@ class TimeEntryQuery < Query
   self.available_columns = [
     QueryColumn.new(:project, :sortable => "#{Project.table_name}.name", :groupable => true),
     QueryColumn.new(:spent_on, :sortable => ["#{TimeEntry.table_name}.spent_on", "#{TimeEntry.table_name}.created_on"], :default_order => 'desc', :groupable => true),
+    QueryColumn.new(:created_on, :sortable => "#{TimeEntry.table_name}.created_on", :default_order => 'desc'),
     QueryColumn.new(:tweek, :sortable => ["#{TimeEntry.table_name}.spent_on", "#{TimeEntry.table_name}.created_on"], :caption => l(:label_week)),
     QueryColumn.new(:user, :sortable => lambda {User.fields_for_order_statement}, :groupable => true),
     QueryColumn.new(:activity, :sortable => "#{TimeEntryActivity.table_name}.position", :groupable => true),
@@ -115,6 +116,8 @@ class TimeEntryQuery < Query
   def base_scope
     TimeEntry.visible.
       joins(:project, :user).
+      includes(:activity).
+      references(:activity).
       left_join_issue.
       where(statement)
   end
@@ -124,9 +127,7 @@ class TimeEntryQuery < Query
 
     base_scope.
       order(order_option).
-      joins(joins_for_order_statement(order_option.join(','))).
-      includes(:activity).
-      references(:activity)
+      joins(joins_for_order_statement(order_option.join(',')))
   end
 
   # Returns sum of all the spent hours
@@ -191,7 +192,7 @@ class TimeEntryQuery < Query
   end
 
   # Accepts :from/:to params as shortcut filters
-  def build_from_params(params)
+  def build_from_params(params, defaults={})
     super
     if params[:from].present? && params[:to].present?
       add_filter('spent_on', '><', [params[:from], params[:to]])

@@ -661,7 +661,7 @@ class UserTest < ActiveSupport::TestCase
   if ldap_configured?
     test "#try_to_login using LDAP with failed connection to the LDAP server" do
       auth_source = AuthSourceLdap.find(1)
-      AuthSource.any_instance.stubs(:initialize_ldap_con).raises(Net::LDAP::LdapError, 'Cannot connect')
+      AuthSource.any_instance.stubs(:initialize_ldap_con).raises(Net::LDAP::Error, 'Cannot connect')
 
       assert_nil User.try_to_login('edavis', 'wrong')
     end
@@ -950,6 +950,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 2, user.projects_by_role.size
     assert_equal [1,5], user.projects_by_role[Role.find(1)].collect(&:id).sort
     assert_equal [2], user.projects_by_role[Role.find(2)].collect(&:id).sort
+  end
+
+  def test_project_ids_by_role_should_not_poison_cache_when_first_called_from_chained_scopes
+    user = User.find(2)
+    project = Project.find(1)
+
+    project.children.visible(user)
+    assert_equal [1, 2, 5], user.project_ids_by_role.values.flatten.sort
   end
 
   def test_accessing_projects_by_role_with_no_projects_should_return_an_empty_array

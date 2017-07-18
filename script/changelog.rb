@@ -191,7 +191,7 @@ module Redmine
 
           issue_hash = { 'id'       => tr.css('td.id > a').text.to_i,
                          'tracker'  => tr.css('td.tracker').text,
-                         'subject'  => tr.css('td.subject> a').text }
+                         'subject'  => tr.css('td.subject> a').text.strip }
           @changelog_items[cat].push(issue_hash)
         end
       end
@@ -310,7 +310,7 @@ module Redmine
           out_file << "\n"
         end
 
-        out_file << summary(v_name, target, i_cnt, nc_i_cnt, no_of_issues, c_cnt)
+        summary(v_name, target, i_cnt, nc_i_cnt, no_of_issues, c_cnt)
 
         out_file.close
       end

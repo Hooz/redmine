@@ -28,6 +28,11 @@ class TimelogControllerTest < Redmine::ControllerTest
 
   include Redmine::I18n
 
+  def setup
+    super
+    Setting.default_language = 'en'
+  end
+
   def test_new
     @request.session[:user_id] = 3
     get :new
@@ -705,6 +710,36 @@ class TimelogControllerTest < Redmine::ControllerTest
 
     assert_select '.total-for-hours', :text => 'Hours: 162.90'
     assert_select 'form#query_form[action=?]', '/time_entries'
+
+    assert_equal ['Date', 'User', 'Activity', 'Issue', 'Comment', 'Hours'], columns_in_list
+    assert_select '.query-totals>span', 1
+  end
+
+  def test_index_with_default_query_setting
+    with_settings :time_entry_list_defaults => {'column_names' => %w(spent_on issue user hours)} do
+      get :index
+      assert_response :success
+    end
+
+    assert_equal ['Date', 'Issue', 'User', 'Hours'], columns_in_list
+  end
+
+  def test_index_with_default_query_setting_using_custom_field
+    field = TimeEntryCustomField.create!(:name => 'Foo', :field_format => 'int')
+
+    with_settings :time_entry_list_defaults => {
+        'column_names' => ["spent_on", "user", "hours", "cf_#{field.id}"],
+        'totalable_names' => ["hours", "cf_#{field.id}"]
+      } do
+      get :index
+      assert_response :success
+    end
+
+    assert_equal ['Date', 'User', 'Hours', 'Foo'], columns_in_list
+
+    assert_select '.total-for-hours'
+    assert_select ".total-for-cf-#{field.id}"
+    assert_select '.query-totals>span', 2
   end
 
   def test_index_all_projects_should_show_log_time_link
@@ -845,6 +880,20 @@ class TimelogControllerTest < Redmine::ControllerTest
     }
     assert_response :success
     assert_equal [t3, t1, t2].map(&:id).map(&:to_s), css_select('input[name="ids[]"]').map {|e| e.attr('value')}
+  end
+
+  def test_index_with_activity_filter
+    activity = TimeEntryActivity.create!(:name => 'Activity')
+    entry = TimeEntry.generate!(:issue_id => 1, :hours => 4.5, :activity => activity)
+
+    get :index, :params => {
+      :f => ['activity_id'],
+      :op => {'activity_id' => '='},
+      :v => {'activity_id' => [activity.id.to_s]}
+    }
+    assert_response :success
+    assert_select "tr#time-entry-#{entry.id}"
+    assert_select "table.time-entries tbody tr", 1
   end
 
   def test_index_with_issue_status_filter
