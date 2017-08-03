@@ -336,7 +336,7 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = 2
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_difference 'WikiContent::Version.count' do
+        assert_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Another_page',
@@ -361,7 +361,7 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = 2
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_difference 'WikiContent::Version.count' do
+        assert_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Another_page',
@@ -388,7 +388,7 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = 2
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_no_difference 'WikiContent::Version.count' do
+        assert_no_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Another_page',
@@ -414,7 +414,7 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = 2
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_no_difference 'WikiContent::Version.count' do
+        assert_no_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Another_page',
@@ -437,7 +437,7 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = 2
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_no_difference 'WikiContent::Version.count' do
+        assert_no_difference 'WikiContentVersion.count' do
           assert_difference 'Attachment.count' do
             put :update, :params => {
               :project_id => 1,
@@ -466,7 +466,7 @@ class WikiControllerTest < Redmine::ControllerTest
 
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_no_difference 'WikiContent::Version.count' do
+        assert_no_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Another_page',
@@ -514,7 +514,7 @@ class WikiControllerTest < Redmine::ControllerTest
 
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_difference 'WikiContent::Version.count' do
+        assert_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Page_with_sections',
@@ -540,7 +540,7 @@ class WikiControllerTest < Redmine::ControllerTest
 
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_difference 'WikiContent::Version.count' do
+        assert_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Page_with_sections',
@@ -565,7 +565,7 @@ class WikiControllerTest < Redmine::ControllerTest
 
     assert_no_difference 'WikiPage.count' do
       assert_no_difference 'WikiContent.count' do
-        assert_no_difference 'WikiContent::Version.count' do
+        assert_no_difference 'WikiContentVersion.count' do
           put :update, :params => {
             :project_id => 1,
             :id => 'Page_with_sections',
@@ -652,7 +652,7 @@ class WikiControllerTest < Redmine::ControllerTest
 
   def test_diff
     content = WikiPage.find(1).content
-    assert_difference 'WikiContent::Version.count', 2 do
+    assert_difference 'WikiContentVersion.count', 2 do
       content.text = "Line removed\nThis is a sample text for testing diffs"
       content.save!
       content.text = "This is a sample text for testing diffs\nLine added"
@@ -843,6 +843,25 @@ class WikiControllerTest < Redmine::ControllerTest
     assert_equal project.wiki.id, page.wiki_id
   end
 
+  def test_rename_as_start_page
+    @request.session[:user_id] = 2
+
+    post :rename, :params => {
+      :project_id => 'ecookbook',
+      :id => 'Another_page',
+      :wiki_page => {
+        :wiki_id => '1',
+        :title => 'Another_page',
+        :redirect_existing_links => '1',
+        :is_start_page => '1'
+      }
+    }
+    assert_redirected_to '/projects/ecookbook/wiki/Another_page'
+
+    wiki = Wiki.find(1)
+    assert_equal 'Another_page', wiki.start_page
+  end
+
   def test_destroy_a_page_without_children_should_not_ask_confirmation
     @request.session[:user_id] = 2
     delete :destroy, :params => {:project_id => 1, :id => 'Child_2'}
@@ -893,7 +912,7 @@ class WikiControllerTest < Redmine::ControllerTest
 
   def test_destroy_version
     @request.session[:user_id] = 2
-    assert_difference 'WikiContent::Version.count', -1 do
+    assert_difference 'WikiContentVersion.count', -1 do
       assert_no_difference 'WikiContent.count' do
         assert_no_difference 'WikiPage.count' do
           delete :destroy_version, :params => {:project_id => 'ecookbook', :id => 'CookBook_documentation', :version => 2}
@@ -905,7 +924,7 @@ class WikiControllerTest < Redmine::ControllerTest
 
   def test_destroy_invalid_version_should_respond_with_404
     @request.session[:user_id] = 2
-    assert_no_difference 'WikiContent::Version.count' do
+    assert_no_difference 'WikiContentVersion.count' do
       assert_no_difference 'WikiContent.count' do
         assert_no_difference 'WikiPage.count' do
           delete :destroy_version, :params => {:project_id => 'ecookbook', :id => 'CookBook_documentation', :version => 99}

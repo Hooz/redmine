@@ -15,13 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+require 'redmine/my_page'
+
 class UserPreference < ActiveRecord::Base
   include Redmine::SafeAttributes
 
   belongs_to :user
   serialize :others
-
-  attr_protected :others, :user_id
 
   before_save :set_others_hash, :clear_unused_block_settings
 

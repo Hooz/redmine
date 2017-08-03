@@ -26,6 +26,7 @@ class IssueTest < ActiveSupport::TestCase
            :issue_statuses, :issue_categories, :issue_relations, :workflows,
            :enumerations,
            :issues, :journals, :journal_details,
+           :watchers,
            :custom_fields, :custom_fields_projects, :custom_fields_trackers, :custom_values,
            :time_entries
 
@@ -2295,11 +2296,13 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   def test_overdue
-    assert Issue.new(:due_date => 1.day.ago.to_date).overdue?
-    assert !Issue.new(:due_date => Date.today).overdue?
-    assert !Issue.new(:due_date => 1.day.from_now.to_date).overdue?
+    User.current = nil
+    today = User.current.today
+    assert  Issue.new(:due_date => (today - 1.day).to_date).overdue?
+    assert !Issue.new(:due_date => today).overdue?
+    assert !Issue.new(:due_date => (today + 1.day).to_date).overdue?
     assert !Issue.new(:due_date => nil).overdue?
-    assert !Issue.new(:due_date => 1.day.ago.to_date,
+    assert !Issue.new(:due_date => (today - 1.day).to_date,
                       :status => IssueStatus.where(:is_closed => true).first
                       ).overdue?
   end
@@ -3045,14 +3048,14 @@ class IssueTest < ActiveSupport::TestCase
     assert_equal IssueStatus.find(3), issue.status
   end
 
-  def test_assigned_to_was_with_a_group
+  def test_previous_assignee_with_a_group
     group = Group.find(10)
     Member.create!(:project_id => 1, :principal => group, :role_ids => [1])
 
     with_settings :issue_group_assignment => '1' do
       issue = Issue.generate!(:assigned_to => group)
       issue.reload.assigned_to = nil
-      assert_equal group, issue.assigned_to_was
+      assert_equal group, issue.previous_assignee
     end
   end
 

@@ -201,7 +201,7 @@ module ActionView
         unless asset_id.blank?
           source += "?#{asset_id}"
         end
-        asset_path(source, options)
+        asset_path(source, options.merge(skip_pipeline: true))
       end
       alias :path_to_asset :asset_path_with_asset_id
 
@@ -218,7 +218,7 @@ module ActionView
             if File.exist? path
               exist = true
             else
-              path = File.join(Rails.public_path, compute_asset_path("#{source}#{extname}", options))
+              path = File.join(Rails.public_path, public_compute_asset_path("#{source}#{extname}", options))
               if File.exist? path
                 exist = true
               end

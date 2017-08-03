@@ -15,6 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+require 'redmine/sort_criteria'
+
 class QueryColumn
   attr_accessor :name, :sortable, :groupable, :totalable, :default_order
   include Redmine::I18n
@@ -212,8 +214,6 @@ class Query < ActiveRecord::Base
   serialize :sort_criteria, Array
   serialize :options, Hash
 
-  attr_protected :project_id, :user_id
-
   validates_presence_of :name
   validates_length_of :name, :maximum => 255
   validates :visibility, :inclusion => { :in => [VISIBILITY_PUBLIC, VISIBILITY_ROLES, VISIBILITY_PRIVATE] }
@@ -223,7 +223,7 @@ class Query < ActiveRecord::Base
   end
 
   after_save do |query|
-    if query.visibility_changed? && query.visibility != VISIBILITY_ROLES
+    if query.saved_change_to_visibility? && query.visibility != VISIBILITY_ROLES
       query.roles.clear
     end
   end
@@ -623,7 +623,7 @@ class Query < ActiveRecord::Base
 
   # Add multiple filters using +add_filter+
   def add_filters(fields, operators, values)
-    if fields.is_a?(Array) && operators.is_a?(Hash) && (values.nil? || values.is_a?(Hash))
+    if fields.present? && operators.present?
       fields.each do |field|
         add_filter(field, operators[field], values && values[field])
       end
@@ -936,12 +936,7 @@ class Query < ActiveRecord::Base
   def grouped_query(&block)
     r = nil
     if grouped?
-      begin
-        # Rails3 will raise an (unexpected) RecordNotFound if there's only a nil group value
-        r = yield base_group_scope
-      rescue ActiveRecord::RecordNotFound
-        r = {nil => yield(base_scope)}
-      end
+      r = yield base_group_scope
       c = group_by_column
       if c.is_a?(QueryCustomFieldColumn)
         r = r.keys.inject({}) {|h, k| h[c.custom_field.cast_value(k)] = r[k]; h}

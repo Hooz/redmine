@@ -270,7 +270,7 @@ ru:
   default_doc_category_user: Пользовательская документация
   default_issue_status_in_progress: В работе
   default_issue_status_closed: Закрыта
-  default_issue_status_feedback: Обратная связь
+  default_issue_status_feedback: Нужен отклик
   default_issue_status_new: Новая
   default_issue_status_rejected: Отклонена
   default_issue_status_resolved: Решена
@@ -1328,3 +1328,9 @@ ru:
   label_no_preview_alternative_html: Предпросмотр недоступен. %{link} файл.
   label_no_preview_download: Скачать
   setting_close_duplicate_issues: Закрывать дубликаты задач автоматически
+  error_exceeds_maximum_hours_per_day: Cannot log more than %{max_hours} hours on the
+    same day (%{logged_hours} hours have already been logged)
+  setting_time_entry_list_defaults: Timelog list defaults
+  setting_timelog_accept_0_hours: Accept time logs with 0 hours
+  setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
+  label_x_revisions: "%{count} revisions"
