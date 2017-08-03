@@ -53,7 +53,8 @@ module ApplicationHelper
     if user.is_a?(User)
       name = h(user.name(options[:format]))
       if user.active? || (User.current.admin? && user.logged?)
-        link_to name, user_path(user), :class => user.css_classes
+        only_path = options[:only_path].nil? ? true : options[:only_path]
+        link_to name, user_url(user, :only_path => only_path), :class => user.css_classes
       else
         name
       end
@@ -220,11 +221,12 @@ module ApplicationHelper
   end
 
   def thumbnail_tag(attachment)
+    thumbnail_size = Setting.thumbnails_size.to_i
     link_to(
       image_tag(
         thumbnail_path(attachment),
-        :srcset => "#{thumbnail_path(attachment, :size => Setting.thumbnails_size.to_i * 2)} 2x",
-        :width => Setting.thumbnails_size
+        :srcset => "#{thumbnail_path(attachment, :size => thumbnail_size * 2)} 2x",
+        :style => "max-width: #{thumbnail_size}px; max-height: #{thumbnail_size}px;"
       ),
       named_attachment_path(
         attachment,
@@ -502,24 +504,6 @@ module ApplicationHelper
     str.blank? ? nil : str
   end
 
-  def reorder_links(name, url, method = :post)
-    # TODO: remove associated styles from application.css too
-    ActiveSupport::Deprecation.warn "Application#reorder_links will be removed in Redmine 4."
-
-    link_to(l(:label_sort_highest),
-            url.merge({"#{name}[move_to]" => 'highest'}), :method => method,
-            :title => l(:label_sort_highest), :class => 'icon-only icon-move-top') +
-    link_to(l(:label_sort_higher),
-            url.merge({"#{name}[move_to]" => 'higher'}), :method => method,
-            :title => l(:label_sort_higher), :class => 'icon-only icon-move-up') +
-    link_to(l(:label_sort_lower),
-            url.merge({"#{name}[move_to]" => 'lower'}), :method => method,
-            :title => l(:label_sort_lower), :class => 'icon-only icon-move-down') +
-    link_to(l(:label_sort_lowest),
-            url.merge({"#{name}[move_to]" => 'lowest'}), :method => method,
-            :title => l(:label_sort_lowest), :class => 'icon-only icon-move-bottom')
-  end
-
   def reorder_handle(object, options={})
     data = {
       :reorder_url => options[:url] || url_for(object),
@@ -609,6 +593,7 @@ module ApplicationHelper
     css << 'project-' + @project.identifier if @project && @project.identifier.present?
     css << 'controller-' + controller_name
     css << 'action-' + action_name
+    css << 'avatars-' + (Setting.gravatar_enabled? ? 'on' : 'off')
     if UserPreference::TEXTAREA_FONT_OPTIONS.include?(User.current.pref.textarea_font)
       css << "textarea-#{User.current.pref.textarea_font}"
     end
@@ -650,7 +635,7 @@ module ApplicationHelper
     if options[:formatting] == false
       text = h(text)
     else
-      formatting = options[:formatting] || Setting.text_formatting
+      formatting = Setting.text_formatting
       text = Redmine::WikiFormatting.to_html(formatting, text, :object => obj, :attribute => attr)
     end
 
@@ -922,7 +907,7 @@ module ApplicationHelper
               end
             when 'user'
               u = User.visible.where(:id => oid, :type => 'User').first
-              link = link_to_user(u) if u
+              link = link_to_user(u, :only_path => only_path) if u
             end
           elsif sep == ':'
             name = remove_double_quotes(identifier)
@@ -983,12 +968,12 @@ module ApplicationHelper
               end
             when 'user'
               u = User.visible.where(:login => name, :type => 'User').first
-              link = link_to_user(u) if u
+              link = link_to_user(u, :only_path => only_path) if u
             end
           elsif sep == "@"
             name = remove_double_quotes(identifier)
             u = User.visible.where(:login => name, :type => 'User').first
-            link = link_to_user(u) if u
+            link = link_to_user(u, :only_path => only_path) if u
           end
         end
         (leading + (link || "#{project_prefix}#{prefix}#{repo_prefix}#{sep}#{identifier}#{comment_suffix}"))
@@ -1439,7 +1424,7 @@ module ApplicationHelper
 
   # Returns the javascript tags that are included in the html layout head
   def javascript_heads
-    tags = javascript_include_tag('jquery-1.11.1-ui-1.11.0-ujs-3.1.4', 'application', 'responsive')
+    tags = javascript_include_tag('jquery-1.11.1-ui-1.11.0-ujs-4.3.1', 'application', 'responsive')
     unless User.current.pref.warn_on_leaving_unsaved == '0'
       tags << "\n".html_safe + javascript_tag("$(window).load(function(){ warnLeavingUnsaved('#{escape_javascript l(:text_warn_on_leaving_unsaved)}'); });")
     end

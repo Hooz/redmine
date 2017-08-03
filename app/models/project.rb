@@ -67,8 +67,6 @@ class Project < ActiveRecord::Base
                 :url => Proc.new {|o| {:controller => 'projects', :action => 'show', :id => o}},
                 :author => nil
 
-  attr_protected :status
-
   validates_presence_of :name, :identifier
   validates_uniqueness_of :identifier, :if => Proc.new {|p| p.identifier_changed?}
   validates_length_of :name, :maximum => 255
@@ -80,9 +78,9 @@ class Project < ActiveRecord::Base
   validates_exclusion_of :identifier, :in => %w( new )
   validate :validate_parent
 
-  after_save :update_inherited_members, :if => Proc.new {|project| project.inherit_members_changed?}
-  after_save :remove_inherited_member_roles, :add_inherited_member_roles, :if => Proc.new {|project| project.parent_id_changed?}
-  after_update :update_versions_from_hierarchy_change, :if => Proc.new {|project| project.parent_id_changed?}
+  after_save :update_inherited_members, :if => Proc.new {|project| project.saved_change_to_inherit_members?}
+  after_save :remove_inherited_member_roles, :add_inherited_member_roles, :if => Proc.new {|project| project.saved_change_to_parent_id?}
+  after_update :update_versions_from_hierarchy_change, :if => Proc.new {|project| project.saved_change_to_parent_id?}
   before_destroy :delete_all_members
 
   scope :has_module, lambda {|mod|
@@ -257,6 +255,15 @@ class Project < ActiveRecord::Base
     scope
   end
 
+  # Creates or updates project time entry activities
+  def update_or_create_time_entry_activities(activities)
+    transaction do
+      activities.each do |id, activity|
+        update_or_create_time_entry_activity(id, activity)
+      end
+    end
+  end
+
   # Will create a new Project specific Activity or update an existing one
   #
   # This will raise a ActiveRecord::Rollback if the TimeEntryActivity
@@ -412,14 +419,6 @@ class Project < ActiveRecord::Base
       @allowed_parents << parent
     end
     @allowed_parents
-  end
-
-  # Sets the parent of the project with authorization check
-  def set_allowed_parent!(p)
-    ActiveSupport::Deprecation.warn "Project#set_allowed_parent! is deprecated and will be removed in Redmine 4, use #safe_attributes= instead."
-    p = p.id if p.is_a?(Project)
-    send :safe_attributes, {:project_id => p}
-    save
   end
 
   # Sets the parent of the project and saves the project
@@ -776,6 +775,10 @@ class Project < ActiveRecord::Base
     :if => lambda {|project, user| project.parent.nil? || project.parent.visible?(user)}
 
   def safe_attributes=(attrs, user=User.current)
+    if attrs.respond_to?(:to_unsafe_hash)
+      attrs = attrs.to_unsafe_hash
+    end
+
     return unless attrs.is_a?(Hash)
     attrs = attrs.deep_dup
 
@@ -835,11 +838,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def member_principals
-    ActiveSupport::Deprecation.warn "Project#member_principals is deprecated and will be removed in Redmine 4.0. Use #memberships.active instead."
-    memberships.active
-  end
-
   # Returns a new unsaved Project instance with attributes copied from +project+
   def self.copy_from(project)
     project = project.is_a?(Project) ? project : Project.find(project)
@@ -872,10 +870,10 @@ class Project < ActiveRecord::Base
 
   def update_inherited_members
     if parent
-      if inherit_members? && !inherit_members_was
+      if inherit_members? && !inherit_members_before_last_save
         remove_inherited_member_roles
         add_inherited_member_roles
-      elsif !inherit_members? && inherit_members_was
+      elsif !inherit_members? && inherit_members_before_last_save
         remove_inherited_member_roles
       end
     end

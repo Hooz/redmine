@@ -17,7 +17,7 @@
 
 require File.expand_path('../../test_helper', __FILE__)
 
-class RepositoriesGitControllerTest < Redmine::ControllerTest
+class RepositoriesGitControllerTest < Redmine::RepositoryControllerTest
   tests RepositoriesController
 
   fixtures :projects, :users, :email_addresses, :roles, :members, :member_roles,
@@ -39,6 +39,7 @@ class RepositoriesGitControllerTest < Redmine::ControllerTest
   JRUBY_SKIP_STR = "TODO: This test fails in JRuby"
 
   def setup
+    super
     @ruby19_non_utf8_pass = Encoding.default_external.to_s != 'UTF-8'
 
     User.current = nil
@@ -277,6 +278,8 @@ class RepositoriesGitControllerTest < Redmine::ControllerTest
       assert_response :success
       assert_select 'h2 a', :text => 'sources'
       assert_select 'table.entries tbody'
+      assert_select 'div.contextual > a.icon-download', false
+
     end
 
     def test_diff

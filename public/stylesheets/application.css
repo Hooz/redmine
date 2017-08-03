@@ -6,7 +6,7 @@ h1, h2, h3, h4 {font-family: "Trebuchet MS", Verdana, sans-serif;padding: 2px 10
 h2, .wiki h1 {font-size: 20px;}
 h3, .wiki h2 {font-size: 16px;}
 h4, .wiki h3 {font-size: 13px;}
-h4 {border-bottom: 1px dotted #bbb;}
+h4 {border-bottom: 1px solid #ccc; font-weight:normal;}
 pre, code {font-family: Consolas, Menlo, "Liberation Mono", Courier, monospace;}
 
 /***** Layout *****/
@@ -300,10 +300,14 @@ table.files tr.file td.digest { font-size: 80%; }
 
 table.members td.roles, table.memberships td.roles { width: 45%; }
 
+table.messages td.last_message {text-align:left;}
 tr.message { height: 2.6em; }
 tr.message td.created_on { white-space: nowrap; }
 tr.message td.last_message { font-size: 80%; white-space: nowrap; }
 tr.message.sticky td.subject { font-weight: bold; }
+
+body.avatars-on #replies .message {padding-left:32px;}
+#replies h4 img.gravatar {margin-left:-32px;}
 
 tr.version.closed, tr.version.closed a { color: #999; }
 tr.version td.name { padding-left: 20px; }
@@ -362,8 +366,6 @@ table.boards td.last-message {text-align:left;font-size:80%;}
 
 div.table-list.boards .table-list-cell.name {width: 30%;}
 
-table.messages td.last_message {text-align:left;}
-
 #query_form_content {font-size:90%;}
 #query_form_with_buttons > p.contextual {font-size:12px; margin:12px 0px;}
 
@@ -372,16 +374,22 @@ table.messages td.last_message {text-align:left;}
   min-width: 1em;
 }
 
-table.query-columns {
-  border-collapse: collapse;
-  border: 0;
+.query-columns>span {
+  display:inline-block;
+  height:100%;
+  vertical-align: middle;
+}
+.query-columns label {
+  display:block;
+}
+.query-columns .buttons input[type=button] {
+  width:35px;
+  display:block;
+}
+.query-columns select {
+  width:150px;
 }
 
-table.query-columns td.buttons {
-  vertical-align: middle;
-  text-align: center;
-}
-table.query-columns td.buttons input[type=button] {width:35px;}
 .query-totals {text-align:right;}
 .query-totals>span:not(:first-child) {margin-left:0.6em;}
 .query-totals .value {font-weight:bold;}
@@ -480,7 +488,7 @@ fieldset#filters td.field { width:230px; }
 fieldset#filters td.operator { width:130px; }
 fieldset#filters td.operator select {max-width:120px;}
 fieldset#filters td.values { white-space:nowrap; }
-fieldset#filters td.values select {min-width:130px; max-width:200px;}
+fieldset#filters td.values select {min-width:130px;}
 fieldset#filters td.values input {height:1em;}
 
 #filters-table {width:60%; float:left;}
@@ -494,13 +502,17 @@ div#issue-changesets {float:right; width:45%; margin-left: 1em; margin-bottom: 1
 div#issue-changesets div.changeset { padding: 4px;}
 div#issue-changesets div.changeset { border-bottom: 1px solid #ddd; }
 div#issue-changesets p { margin-top: 0; margin-bottom: 1em;}
-.changeset-comments {margin-bottom:1em; font-family:}
+.changeset-comments {margin-bottom:1em;}
 
-div.journal {overflow:auto;}
-div.journal.private-notes {border-left:2px solid #d22; padding-left:4px; margin-left:-6px;}
+div.journal .contextual {margin-top: 0;}
+div.journal.private-notes .wiki {border-left:2px solid #d22; padding-left:4px; margin-left:-6px;}
 div.journal ul.details, ul.revision-info {color:#959595; margin-bottom: 1.5em;}
 div.journal ul.details a, ul.revision-info a {color:#70A7CD;}
-div.journal ul.details a:hover,  ul.revision-info a:hover {color:#D14848;}
+div.journal ul.details a:hover, ul.revision-info a:hover {color:#D14848;}
+body.avatars-on div.journal {padding-left:32px;}
+div.journal h4 img.gravatar {margin-left:-32px;}
+
+#history div:target h4 {background-color:#DDEEFF;}
 
 div#activity dl, #search-results { margin-left: 2em; }
 div#activity dd, #search-results dd { margin-bottom: 1em; padding-left: 18px; font-size: 0.9em; }
@@ -539,6 +551,8 @@ table#time-report .hours-dec { font-size: 0.9em; }
 
 div.wiki-page .contextual a {opacity: 0.4}
 div.wiki-page .contextual a:hover {opacity: 1}
+
+.wiki-update-info {text-align:right; color:#666; font-size:90%;}
 
 form .attributes select { width: 60%; }
 form .attributes select + a.icon-only { vertical-align: middle; margin-left: 4px; }
@@ -719,7 +733,7 @@ span.required {color: #bb0000;}
 .check_box_group {
   display:block;
   width:95%;
-  max-height:300px;
+  max-height:120px;
   overflow-y:auto;
   padding:2px 4px 4px 2px;
   background:#fff;
@@ -1128,7 +1142,7 @@ div.wiki img {vertical-align:middle; max-width:100%;}
   line-height:1.5em;
 }
 
-.mypage-box>.contextual {opacity:0; transition: opacity 0.2s;}
+.mypage-box>.contextual {opacity:0.001; transition: opacity 0.2s;}
 .mypage-box:hover>.contextual {opacity:1;}
 
 .handle {cursor: move;}
@@ -1279,7 +1293,7 @@ div.wiki img {vertical-align:middle; max-width:100%;}
 .icon-document { background-image: url(../images/document.png); }
 .icon-project { background-image: url(../images/projects.png); }
 .icon-add-bullet { background-image: url(../images/bullet_add.png); }
-.icon-shared { background-image: url(../images/link.png) };
+.icon-shared { background-image: url(../images/link.png); }
 
 .icon-file { background-image: url(../images/files/default.png); }
 .icon-file.text-plain { background-image: url(../images/files/text.png); }
@@ -1328,8 +1342,7 @@ div.gravatar-with-child > img.gravatar:nth-child(2) {
   border: 2px solid rgba(255, 255, 255, 0.9);
 }
 
-h2 img.gravatar {margin: -2px 4px -4px 0;}
-h3 img.gravatar {margin: -4px 4px -4px 0;}
+h2 img.gravatar, h3 img.gravatar {margin-right: 4px;}
 h4 img.gravatar {margin: -2px 4px -4px 0;}
 td.username img.gravatar {margin: 0 0.5em 0 0; vertical-align: top;}
 #activity dt img.gravatar {float: left; margin: 0 1em 1em 0;}
@@ -1337,8 +1350,6 @@ td.username img.gravatar {margin: 0 0.5em 0 0; vertical-align: top;}
 .icon-gravatar {float: left; margin-right: 4px;}
 
 #activity dt, .journal {clear: left;}
-
-.journal-link {float: right;}
 
 h2 img { vertical-align:middle; }
 

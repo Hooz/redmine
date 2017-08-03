@@ -107,7 +107,6 @@ Rails.application.routes.draw do
 
     member do
       get 'settings(/:tab)', :action => 'settings', :as => 'settings'
-      post 'modules'
       post 'archive'
       post 'unarchive'
       post 'close'
@@ -242,10 +241,6 @@ Rails.application.routes.draw do
   get 'projects/:id/repository/:repository_id/statistics', :to => 'repositories#stats'
   get 'projects/:id/repository/:repository_id/graph', :to => 'repositories#graph'
 
-  get 'projects/:id/repository/:repository_id/changes(/*path)',
-      :to => 'repositories#changes',
-      :format => false
-
   get 'projects/:id/repository/:repository_id/revisions/:rev', :to => 'repositories#revision'
   get 'projects/:id/repository/:repository_id/revision', :to => 'repositories#revision'
   post   'projects/:id/repository/:repository_id/revisions/:rev/issues', :to => 'repositories#add_related_issue'
@@ -255,16 +250,12 @@ Rails.application.routes.draw do
     get "projects/:id/repository/:repository_id/revisions/:rev/#{action}(/*path)",
         :controller => 'repositories',
         :action => action,
-        :format => false,
-        :constraints => {:rev => /[a-z0-9\.\-_]+/}
+        :format => 'html',
+        :constraints => {:rev => /[a-z0-9\.\-_]+/, :path => /.*/}
   end
 
   get 'projects/:id/repository/statistics', :to => 'repositories#stats'
   get 'projects/:id/repository/graph', :to => 'repositories#graph'
-
-  get 'projects/:id/repository/changes(/*path)',
-      :to => 'repositories#changes',
-      :format => false
 
   get 'projects/:id/repository/revisions', :to => 'repositories#revisions'
   get 'projects/:id/repository/revisions/:rev', :to => 'repositories#revision'
@@ -275,30 +266,32 @@ Rails.application.routes.draw do
     get "projects/:id/repository/revisions/:rev/#{action}(/*path)",
         :controller => 'repositories',
         :action => action,
-        :format => false,
-        :constraints => {:rev => /[a-z0-9\.\-_]+/}
+        :format => 'html',
+        :constraints => {:rev => /[a-z0-9\.\-_]+/, :path => /.*/}
   end
   %w(browse entry raw changes annotate diff).each do |action|
     get "projects/:id/repository/:repository_id/#{action}(/*path)",
         :controller => 'repositories',
         :action => action,
-        :format => false
+        :format => 'html',
+        :constraints => {:path => /.*/}
   end
   %w(browse entry raw changes annotate diff).each do |action|
     get "projects/:id/repository/#{action}(/*path)",
         :controller => 'repositories',
         :action => action,
-        :format => false
+        :format => 'html',
+        :constraints => {:path => /.*/}
   end
 
-  get 'projects/:id/repository/:repository_id/show/*path', :to => 'repositories#show', :format => false
-  get 'projects/:id/repository/show/*path', :to => 'repositories#show', :format => false
+  get 'projects/:id/repository/:repository_id/show/*path', :to => 'repositories#show', :format => 'html', :constraints => {:path => /.*/}
+  get 'projects/:id/repository/show/*path', :to => 'repositories#show', :format => 'html', :constraints => {:path => /.*/}
 
   get 'projects/:id/repository/:repository_id', :to => 'repositories#show', :path => nil
   get 'projects/:id/repository', :to => 'repositories#show', :path => nil
 
   # additional routes for having the file name at the end of url
-  get 'attachments/:id/:filename', :to => 'attachments#show', :id => /\d+/, :filename => /.*/, :as => 'named_attachment'
+  get 'attachments/:id/:filename', :to => 'attachments#show', :id => /\d+/, :filename => /.*/, :as => 'named_attachment', :format => 'html'
   get 'attachments/download/:id/:filename', :to => 'attachments#download', :id => /\d+/, :filename => /.*/, :as => 'download_named_attachment'
   get 'attachments/download/:id', :to => 'attachments#download', :id => /\d+/
   get 'attachments/thumbnail/:id(/:size)', :to => 'attachments#thumbnail', :id => /\d+/, :size => /\d+/, :as => 'thumbnail'
@@ -376,7 +369,7 @@ Rails.application.routes.draw do
 
   match 'uploads', :to => 'attachments#upload', :via => :post
 
-  get 'robots.txt', :to => 'welcome#robots'
+  get 'robots', :to => 'welcome#robots'
 
   Dir.glob File.expand_path("#{Redmine::Plugin.directory}/*") do |plugin_dir|
     file = File.join(plugin_dir, "config/routes.rb")

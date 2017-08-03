@@ -64,6 +64,16 @@ class ProjectsControllerTest < Redmine::ControllerTest
     assert_equal 'text/javascript', response.content_type
   end
 
+  def test_autocomplete_js_with_blank_search_term
+    get :autocomplete, :params => {
+        :format => 'js',
+        :q => ''
+      },
+      :xhr => true
+    assert_response :success
+    assert_equal 'text/javascript', response.content_type
+  end
+
   test "#index by non-admin user with view_time_entries permission should show overall spent time link" do
     @request.session[:user_id] = 3
     get :index
@@ -543,6 +553,16 @@ class ProjectsControllerTest < Redmine::ControllerTest
     assert_select 'a', :text => /Private child/
   end
 
+  def test_show_by_member_on_leaf_project_should_display_issue_counts
+    @request.session[:user_id] = 2
+    get :show, :params => {
+        :id => 'onlinestore'
+      }
+    assert_response :success
+    # Make sure there's a > 0 issue count
+    assert_select 'table.issue-report td.total a', :text => %r{\A[1-9]\d*\z}
+  end
+
   def test_settings
     @request.session[:user_id] = 2 # manager
     get :settings, :params => {
@@ -580,21 +600,6 @@ class ProjectsControllerTest < Redmine::ControllerTest
         :id => 1
       }
     assert_response 403
-  end
-
-  def test_setting_with_wiki_module_and_no_wiki
-    Project.find(1).wiki.destroy
-    Role.find(1).add_permission! :manage_wiki
-    @request.session[:user_id] = 2
-
-    get :settings, :params => {
-        :id => 1
-      }
-    assert_response :success
-
-    assert_select 'form[action=?]', '/projects/ecookbook/wiki' do
-      assert_select 'input[name=?]', 'wiki[start_page]'
-    end
   end
 
   def test_settings_should_accept_version_status_filter
@@ -720,15 +725,17 @@ class ProjectsControllerTest < Redmine::ControllerTest
     assert_match /Successful update/, flash[:notice]
   end
 
-  def test_modules
+  def test_update_modules
     @request.session[:user_id] = 2
     Project.find(1).enabled_module_names = ['issue_tracking', 'news']
 
-    post :modules, :params => {
+    post :update, :params => {
         :id => 1,
-        :enabled_module_names => ['issue_tracking', 'repository', 'documents']
+        :project => {
+          :enabled_module_names => ['issue_tracking', 'repository', 'documents']
+        }
       }
-    assert_redirected_to '/projects/ecookbook/settings/modules'
+    assert_redirected_to '/projects/ecookbook/settings'
     assert_equal ['documents', 'issue_tracking', 'repository'], Project.find(1).enabled_module_names.sort
   end
 
@@ -867,10 +874,8 @@ class ProjectsControllerTest < Redmine::ControllerTest
         :id => source.id
       }
     assert_response :success
-    assert_select 'fieldset#project_issue_custom_fields' do
-      assert_select 'input[type=checkbox][value=?][checked=checked]', field1.id.to_s
-      assert_select 'input[type=checkbox][value=?]:not([checked])', field2.id.to_s
-    end
+    assert_select 'input[type=hidden][name=?][value=?]', 'project[issue_custom_field_ids][]', field1.id.to_s
+    assert_select 'input[type=hidden][name=?][value=?]', 'project[issue_custom_field_ids][]', field2.id.to_s, 0
   end
 
   def test_post_copy_should_copy_requested_items
