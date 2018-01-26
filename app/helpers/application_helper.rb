@@ -177,7 +177,8 @@ module ApplicationHelper
     end
     case object.class.name
     when 'Array'
-      object.map {|o| format_object(o, html)}.join(', ').html_safe
+      formatted_objects = object.map {|o| format_object(o, html)}
+      html ? safe_join(formatted_objects, ', ') : formatted_objects.join(', ')
     when 'Time'
       format_time(object)
     when 'Date'
@@ -1404,7 +1405,13 @@ module ApplicationHelper
       elsif user.to_s =~ %r{<(.+?)>}
         email = $1
       end
-      return gravatar(email.to_s.downcase, options) unless email.blank? rescue nil
+      if email.present?
+        gravatar(email.to_s.downcase, options) rescue nil
+      else
+        image_tag 'anonymous.png',
+                  GravatarHelper::DEFAULT_OPTIONS
+                    .except(:default, :rating, :ssl).merge(options)
+      end
     else
       ''
     end

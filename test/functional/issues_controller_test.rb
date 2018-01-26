@@ -1012,7 +1012,12 @@ class IssuesControllerTest < Redmine::ControllerTest
     assert_response :success
 
     # query should use specified columns + id and checkbox
-    assert_select 'table.issues thead th', columns.size + 2
+    assert_select 'table.issues thead' do
+      assert_select 'th', columns.size + 2
+      assert_select 'th.tracker'
+      assert_select 'th.subject'
+      assert_select 'th.assigned_to'
+    end
 
     # columns should be stored in session
     assert_kind_of Hash, session[:issue_query]
@@ -1073,7 +1078,10 @@ class IssuesControllerTest < Redmine::ControllerTest
 
     # query should use specified columns
     assert_equal ["#", "Tracker", "Subject", "Searchable field"], columns_in_issues_list
-    assert_select 'table.issues td.cf_2.string'
+    assert_select 'table.issues' do
+      assert_select 'th.cf_2.string'
+      assert_select 'td.cf_2.string'
+    end
   end
 
   def test_index_with_multi_custom_field_column
@@ -1119,7 +1127,10 @@ class IssuesControllerTest < Redmine::ControllerTest
           :set_filter => 1,
           :c => %w(start_date)
         }
-      assert_select "table.issues td.start_date", :text => '24/08/1987'
+      assert_select 'table.issues' do
+        assert_select 'th.start_date'
+        assert_select 'td.start_date', :text => '24/08/1987'
+      end
     end
   end
 
@@ -3871,6 +3882,7 @@ class IssuesControllerTest < Redmine::ControllerTest
 
     assert_select 'input[type=checkbox][name=?][checked=checked]', 'issue[watcher_user_ids][]', 1
     assert_select 'input[type=checkbox][name=?][checked=checked][value=?]', 'issue[watcher_user_ids][]', user.id.to_s
+    assert_select 'input[type=hidden][name=?][value=?]', 'issue[watcher_user_ids][]', '', 1
   end
 
   def test_new_as_copy_with_invalid_issue_should_respond_with_404
@@ -4205,6 +4217,46 @@ class IssuesControllerTest < Redmine::ControllerTest
     end
     issue = Issue.order('id DESC').first
     assert_equal 1, issue.project_id
+  end
+
+  def test_create_as_copy_with_watcher_user_ids_should_copy_watchers
+    @request.session[:user_id] = 2
+    copied = Issue.generate!
+    copied.add_watcher User.find(2)
+    copied.add_watcher User.find(3)
+
+    assert_difference 'Issue.count' do
+      post :create, :params => {
+          :project_id => 1,
+          :copy_from => copied.id,
+          :issue => {
+            :subject => 'Copy cleared watchers',
+            :watcher_user_ids => ['', '3']
+          }
+        }
+    end
+    issue = Issue.order('id DESC').first
+    assert_equal [3], issue.watcher_user_ids
+  end
+
+  def test_create_as_copy_without_watcher_user_ids_should_not_copy_watchers
+    @request.session[:user_id] = 2
+    copied = Issue.generate!
+    copied.add_watcher User.find(2)
+    copied.add_watcher User.find(3)
+
+    assert_difference 'Issue.count' do
+      post :create, :params => {
+          :project_id => 1,
+          :copy_from => copied.id,
+          :issue => {
+            :subject => 'Copy cleared watchers',
+            :watcher_user_ids => ['']
+          }
+        }
+    end
+    issue = Issue.order('id DESC').first
+    assert_equal [], issue.watcher_user_ids
   end
 
   def test_get_edit

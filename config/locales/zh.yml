@@ -134,8 +134,8 @@ zh:
         circular_dependency: "此关联将导致循环依赖"
         cant_link_an_issue_with_a_descendant: "问题不能关联到它的子任务"
         earlier_than_minimum_start_date: "不能早于 %{date} 由于有前置问题"
-        not_a_regexp: "is not a valid regular expression"
-        open_issue_with_closed_parent: "An open issue cannot be attached to a closed parent task"
+        not_a_regexp: "不是一个合法的正则表达式"
+        open_issue_with_closed_parent: "无法将一个打开的问题关联至一个被关闭的父任务"
 
   actionview_instancetag_blank_option: 请选择
 
@@ -1194,7 +1194,7 @@ zh:
   error_no_projects_with_tracker_allowed_for_new_issue: 当前项目中不包含对应的跟踪类型，不能创建该类型的工作项。
   field_textarea_font: 用于文本区域的字体
   label_font_default: 默认字体
-  label_font_monospace: 等款字体
+  label_font_monospace: 等宽字体
   label_font_proportional: 比例字体
   setting_timespan_format: 时间格式设置
   label_table_of_contents: 目录
@@ -1218,9 +1218,8 @@ zh:
   label_no_preview_alternative_html: 无法预览。请使用文件 %{link} 查阅。
   label_no_preview_download: 下载
   setting_close_duplicate_issues: 自动关闭重复的问题
-  error_exceeds_maximum_hours_per_day: Cannot log more than %{max_hours} hours on the
-    same day (%{logged_hours} hours have already been logged)
-  setting_time_entry_list_defaults: Timelog list defaults
-  setting_timelog_accept_0_hours: Accept time logs with 0 hours
-  setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
-  label_x_revisions: "%{count} revisions"
+  error_exceeds_maximum_hours_per_day: 当日内无法计入超过 %{max_hours} 的工时 (%{logged_hours} 工时已被记录)
+  setting_time_entry_list_defaults: 默认日志一览
+  setting_timelog_accept_0_hours: 允许计入0小时工时
+  setting_timelog_max_hours_per_day: 每用户每天最大可计入工时上限
+  label_x_revisions: "%{count} 修订"

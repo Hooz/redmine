@@ -15,15 +15,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class WikisController < ApplicationController
-  menu_item :settings
-  before_action :find_project, :authorize
+require File.expand_path('../../../../../../test_helper', __FILE__)
 
-  # Delete a project's wiki
-  def destroy
-    if request.post? && params[:confirm] && @project.wiki
-      @project.wiki.destroy
-      redirect_to settings_project_path(@project, :tab => 'wiki')
-    end
+class IssuesPdfHelperTest < ActiveSupport::TestCase
+  include Redmine::Export::PDF::IssuesPdfHelper
+
+  def test_fetch_row_values_should_round_float_values
+    query = IssueQuery.new(:project => Project.find(1), :name => '_')
+    query.column_names = [:subject, :spent_hours]
+    issue = Issue.find(2)
+    TimeEntry.create(:spent_on => Date.today, :hours => 4.3432, :user => User.find(1),
+                     :project_id => 1, :issue => issue, :activity => TimeEntryActivity.first)
+    results = fetch_row_values(issue, query, 0)
+    assert_equal ["2", "Add ingredients categories", "4.34"], results
   end
 end

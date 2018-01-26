@@ -15,15 +15,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class WikisController < ApplicationController
-  menu_item :settings
-  before_action :find_project, :authorize
+require File.expand_path('../../../../../test_helper', __FILE__)
 
-  # Delete a project's wiki
-  def destroy
-    if request.post? && params[:confirm] && @project.wiki
-      @project.wiki.destroy
-      redirect_to settings_project_path(@project, :tab => 'wiki')
-    end
+class URLTest < ActiveSupport::TestCase
+  include Redmine::Helpers::URL
+
+  def test_uri_with_safe_scheme
+    assert uri_with_safe_scheme?("http://example.com/")
+    assert uri_with_safe_scheme?("https://example.com/")
+    assert uri_with_safe_scheme?("ftp://example.com/index.html")
+    assert uri_with_safe_scheme?("mailto:root@example.com")
+  end
+
+  def test_uri_with_safe_scheme_invalid_component
+    assert_not uri_with_safe_scheme?("httpx://example.com/")
+    assert_not uri_with_safe_scheme?("mailto:root@")
   end
 end
