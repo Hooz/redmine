@@ -4,7 +4,7 @@ if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('1.5.0')
   abort "Redmine requires Bundler 1.5.0 or higher (you're using #{Bundler::VERSION}).\nPlease update with 'gem update bundler'."
 end
 
-gem "rails", "5.1.2"
+gem "rails", "5.1.4"
 gem "coderay", "~> 1.1.1"
 gem "request_store", "1.0.5"
 gem "mime-types", "~> 3.0"
@@ -12,6 +12,7 @@ gem "actionpack-xml_parser"
 gem "roadie-rails", "~> 1.2.1"
 gem "roadie", "~> 3.2.1"
 gem "mimemagic"
+gem "mail", "~> 2.6.4"
 
 gem "nokogiri", "~> 1.8.0"
 gem "i18n", "~> 0.7.0"
@@ -21,7 +22,7 @@ gem "rails-html-sanitizer", ">= 1.0.3"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin]
-gem "rbpdf", "~> 1.19.2"
+gem "rbpdf", "~> 1.19.3"
 
 # Server
 gem 'puma', '~> 3.0'

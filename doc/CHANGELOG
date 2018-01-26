@@ -4,6 +4,136 @@ Redmine - project management software
 Copyright (C) 2006-2017  Jean-Philippe Lang
 http://www.redmine.org/
 
+== 2018-01-08 v3.4.4
+
+=== [Accounts / authentication]
+
+* Defect #22532: Strip whitespace from login on login page
+* Defect #27754: Strip whitespace from email addresses on lost password page
+
+=== [Administration]
+
+* Defect #27586: "Uncheck all" icon at the upper left corner in workflow status transitions page is not working
+
+=== [Calendar]
+
+* Defect #27153: Custom query breaks calendar view with error 500
+* Patch #27139: Fix for project link background in calendar tooltips
+
+=== [Custom fields]
+
+* Defect #26705: Unable to download file if custom field is not defined as visible to any users
+
+=== [Email receiving]
+
+* Patch #27885: Empty email attachments are imported to Redmine, creating broken DB records
+
+=== [Gantt]
+
+* Defect #26410: Gravatar icon is misaligned in gantt
+
+=== [Gems support]
+
+* Defect #27206: cannot install public_suffix if ruby < 2.1
+* Defect #27505: Cannot install nokogiri 1.7 on Windows Ruby 2.4
+
+=== [Issues]
+
+* Defect #26880: Cannot clear all watchers when copying an issue
+* Defect #27110: Changing the tracker to a tracker with the tracker field set to read-only won't work
+* Defect #27881: No validation errors when entering an invalid "Estimate hours" value
+* Patch #27663: Same relates relation can be created twice
+* Patch #27695: Fix ActiveRecord::RecordNotUnique errors when trying to add certain issue relations
+
+=== [Issues list]
+
+* Defect #27533: Cannot change the priority of the parent issue in issue query context menu when parent priority is independent of children
+
+=== [Plugin API]
+
+* Defect #20513: Unloadable plugin convention breaks with Rails 4.2.3
+
+=== [SCM]
+
+* Defect #27333: Switching SCM fails after validation error in "New repository" page
+
+=== [Security]
+
+* Defect #27516: Remote command execution through mercurial adapter
+
+=== [Translations]
+
+* Patch #27502: Lithuanian translation for 3.4-stable
+* Patch #27620: Brazilian translation update
+* Patch #27642: Spanish translation update (jstoolbar-es.js)
+* Patch #27649: Spanish/Panama translation update (jstoolbar-es-pa.js)
+* Patch #27767: Czech translation for 3.4-stable
+
+=== [UI]
+
+* Defect #19578: Issues reports table header overlaping
+* Defect #26699: Anonymous user should have their icon
+
+== 2017-10-15 v3.4.3
+
+=== [Administration]
+
+* Defect #26564: Enumerations sorting does not work
+
+=== [Custom fields]
+
+* Defect #26468: Using custom fields of type "File" leads to unsolvable error if filetype is not allowed
+
+=== [Issues]
+
+* Defect #26627: Editing issues no longer sends notifications to previous assignee
+
+=== [Issues list]
+
+* Defect #26471: Issue Query: inconsistency between spent_hours sum and sum of shown spent_hours values
+
+=== [PDF export]
+
+* Defect #25702: Exporting wiki page with specific table to PDF causes 500
+
+=== [Roadmap]
+
+* Patch #26492: % is not valid without a format specifier
+
+=== [SCM]
+
+* Defect #26403: The second and subsequent lines of commit messages are not displayed in repository browser
+* Defect #26645: git 2.14 compatibility
+
+=== [Text formatting]
+
+* Patch #26682: URL-escape the ! character in generated markup for dropped uploads
+
+=== [Time tracking]
+
+* Defect #26520: Blank "Issue" field on the "Log time" from the "Spent time - Details" page for an issue
+* Defect #26667: Filtering time entries after issue's target version doesn't work as expected in some cases
+* Defect #26780: Translation for label_week in time report is not working
+
+=== [Translations]
+
+* Patch #26703: German translations in 3.4-stable
+* Patch #27034: Patch for updated Chinese translation
+
+=== [UI]
+
+* Defect #26568: Multiple Selection List Filter View - items are cut off from view
+* Patch #26395: Jump to project autocomplete: focus selected project
+* Patch #26689: Add title to author's and assignee's icon
+
+=== [Wiki]
+
+* Defect #26599: Corrupted file name when exporting a wiki page with Non-ASCII title using Microsoft's browsers
+
+=== [Security]
+
+* Defect #27186: XSS vulnerabilities
+
 == 2017-07-16 v3.4.2
 
 === [Administration]

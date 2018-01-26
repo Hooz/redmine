@@ -274,6 +274,7 @@ tr.issue.idnt-8 td.subject {padding-left: 136px; background-position: 120px 50%;
 tr.issue.idnt-9 td.subject {padding-left: 152px; background-position: 136px 50%;}
 
 table.issue-report {table-layout:fixed;}
+table.issue-report th {white-space: normal;}
 
 tr.entry { border: 1px solid #f8f8f8; }
 tr.entry td { white-space: nowrap; }
@@ -714,8 +715,9 @@ label.no-css {
   width:auto;
 }
 input#time_entry_comments { width: 90%;}
+input#months { width: 30px; }
 
-#preview fieldset {margin-top: 1em; background: url(../images/draft.png)}
+fieldset.preview {margin-top: 1em; min-width: inherit; background: url(../images/draft.png)}
 
 .tabular.settings p{ padding-left: 300px; }
 .tabular.settings label{ margin-left: -300px; width: 295px; }
@@ -917,9 +919,9 @@ table.cal td p.day-num {font-size: 1.1em; text-align:right;}
 table.cal td.odd p.day-num {color: #bbb;}
 table.cal td.today {background:#ffffdd;}
 table.cal td.today p.day-num {font-weight: bold;}
-table.cal .starting a, p.cal.legend .starting {background: url(../images/bullet_go.png) no-repeat -1px -2px; padding-left:16px;}
-table.cal .ending a, p.cal.legend .ending {background: url(../images/bullet_end.png) no-repeat -1px -2px; padding-left:16px;}
-table.cal .starting.ending a, p.cal.legend .starting.ending {background: url(../images/bullet_diamond.png) no-repeat -1px -2px; padding-left:16px;}
+table.cal .starting a.issue, p.cal.legend .starting {background: url(../images/bullet_go.png) no-repeat -1px -2px; padding-left:16px;}
+table.cal .ending a.issue, p.cal.legend .ending {background: url(../images/bullet_end.png) no-repeat -1px -2px; padding-left:16px;}
+table.cal .starting.ending a.issue, p.cal.legend .starting.ending {background: url(../images/bullet_diamond.png) no-repeat -1px -2px; padding-left:16px;}
 p.cal.legend span {display:block;}
 
 /***** Tooltips ******/
@@ -1164,6 +1166,11 @@ div.wiki img {vertical-align:middle; max-width:100%;}
 
 .gantt_subjects { font-size: 0.8em; }
 .gantt_subjects div { line-height:16px;height:16px;overflow:hidden;white-space:nowrap;text-overflow: ellipsis; }
+.gantt_subjects div.issue-subject:hover { background-color:#ffffdd; }
+
+.gantt_subjects .issue-subject img.icon-gravatar {
+  margin: 2px 5px 0px 2px;
+}
 
 .task {
   position: absolute;

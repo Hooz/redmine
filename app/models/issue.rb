@@ -440,7 +440,7 @@ class Issue < ActiveRecord::Base
   end
 
   def estimated_hours=(h)
-    write_attribute :estimated_hours, (h.is_a?(String) ? h.to_hours : h)
+    write_attribute :estimated_hours, (h.is_a?(String) ? (h.to_hours || h) : h)
   end
 
   safe_attributes 'project_id',
@@ -1704,7 +1704,7 @@ class Issue < ActiveRecord::Base
               estimated * ratio
             }.sum
             progress = done / (average * children.count)
-            p.done_ratio = progress.round
+            p.done_ratio = progress.floor
           end
         end
       end

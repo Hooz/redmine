@@ -301,9 +301,9 @@ module Redmine
       def line_for_version(version, options)
         # Skip versions that don't have a start_date
         if version.is_a?(Version) && version.due_date && version.start_date
-          label = "#{h(version)} #{h(version.completed_percent.to_f.round)}%"
+          label = "#{h(version)} #{h(version.visible_fixed_issues.completed_percent.to_f.round)}%"
           label = h("#{version.project} -") + label unless @project && @project == version.project
-          line(version.start_date, version.due_date,  version.completed_percent, true, label, options, version)
+          line(version.start_date, version.due_date,  version.visible_fixed_issues.completed_percent, true, label, options, version)
         end
       end
 
@@ -666,10 +666,11 @@ module Redmine
             assigned_string = l(:field_assigned_to) + ": " + issue.assigned_to.name
             s << view.avatar(issue.assigned_to,
                              :class => 'gravatar icon-gravatar',
-                             :size => 10,
+                             :size => 13,
                              :title => assigned_string).to_s.html_safe
           end
           s << view.link_to_issue(issue).html_safe
+          s << view.content_tag(:input, nil, :type => 'checkbox', :name => 'ids[]', :value => issue.id, :style => 'display:none;', :class => 'toggle-selection')
           view.content_tag(:span, s, :class => css_classes).html_safe
         when Version
           version = object
@@ -678,9 +679,9 @@ module Redmine
           html_class << (version.behind_schedule? ? 'version-behind-schedule' : '') << " "
           html_class << (version.overdue? ? 'version-overdue' : '')
           html_class << ' version-closed' unless version.open?
-          if version.start_date && version.due_date && version.completed_percent
+          if version.start_date && version.due_date && version.visible_fixed_issues.completed_percent
             progress_date = calc_progress_date(version.start_date,
-                                               version.due_date, version.completed_percent)
+                                               version.due_date, version.visible_fixed_issues.completed_percent)
             html_class << ' behind-start-date' if progress_date < self.date_from
             html_class << ' over-end-date' if progress_date > self.date_to
           end
@@ -704,7 +705,7 @@ module Redmine
         case object
         when Issue
           tag_options[:id] = "issue-#{object.id}"
-          tag_options[:class] = "issue-subject"
+          tag_options[:class] = "issue-subject hascontextmenu"
           tag_options[:title] = object.subject
         when Version
           tag_options[:id] = "version-#{object.id}"
@@ -841,6 +842,7 @@ module Redmine
           s = view.content_tag(:span,
                                view.render_issue_tooltip(object).html_safe,
                                :class => "tip")
+          s += view.content_tag(:input, nil, :type => 'checkbox', :name => 'ids[]', :value => object.id, :style => 'display:none;', :class => 'toggle-selection')
           style = ""
           style << "position: absolute;"
           style << "top:#{params[:top]}px;"
@@ -849,7 +851,7 @@ module Redmine
           style << "height:12px;"
           output << view.content_tag(:div, s.html_safe,
                                      :style => style,
-                                     :class => "tooltip")
+                                     :class => "tooltip hascontextmenu")
         end
         @lines << output
         output

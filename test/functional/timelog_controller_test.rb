@@ -721,6 +721,18 @@ class TimelogControllerTest < Redmine::ControllerTest
       assert_response :success
     end
 
+    assert_select 'table.time-entries thead' do
+      assert_select 'th.spent_on'
+      assert_select 'th.issue'
+      assert_select 'th.user'
+      assert_select 'th.hours'
+    end
+    assert_select 'table.time-entries tbody' do
+      assert_select 'td.spent_on'
+      assert_select 'td.issue'
+      assert_select 'td.user'
+      assert_select 'td.hours'
+    end
     assert_equal ['Date', 'Issue', 'User', 'Hours'], columns_in_list
   end
 
@@ -826,6 +838,27 @@ class TimelogControllerTest < Redmine::ControllerTest
     assert_select '.total-for-hours', :text => 'Hours: 5.00'
   end
 
+  def test_index_at_project_level_with_multiple_issue_fixed_version_ids
+    version = Version.generate!(:project_id => 1)
+    version2 = Version.generate!(:project_id => 1)
+    issue = Issue.generate!(:project_id => 1, :fixed_version => version)
+    issue2 = Issue.generate!(:project_id => 1, :fixed_version => version2)
+    TimeEntry.generate!(:issue => issue, :hours => 2)
+    TimeEntry.generate!(:issue => issue2, :hours => 3)
+    @request.session[:user_id] = 2
+
+    get :index, :params => {
+      :project_id => 'ecookbook',
+      :f => ['issue.fixed_version_id'],
+      :op => {'issue.fixed_version_id' => '='},
+      :v => {'issue.fixed_version_id' => [version.id.to_s,version2.id.to_s]}
+    }
+    assert_response :success
+
+    assert_select 'tr.time-entry', 2
+    assert_select '.total-for-hours', :text => 'Hours: 5.00'
+  end
+
   def test_index_at_project_level_with_date_range
     get :index, :params => {
       :project_id => 'ecookbook',
@@ -926,6 +959,8 @@ class TimelogControllerTest < Redmine::ControllerTest
       :c => %w(project spent_on issue comments hours issue.status)
     }
     assert_response :success
+
+    assert_select 'th.issue-status'
     assert_select 'td.issue-status', :text => issue.status.name
   end
 
@@ -1038,7 +1073,7 @@ class TimelogControllerTest < Redmine::ControllerTest
       :sort => field_name
     }
     assert_response :success
-    assert_select "th a.sort", :text => 'String Field'
+    assert_select "th.cf_#{field.id} a.sort", :text => 'String Field'
 
     # Make sure that values are properly sorted
     values = css_select("td.#{field_name}").map(&:text).reject(&:blank?)
