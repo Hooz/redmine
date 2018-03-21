@@ -5,7 +5,7 @@ set :deploy_to, '/data/www/zy-rails-app/redmine'
 
 server 'zyremix.com',
        user: 'deploy',
-       roles: %w{web app db blog}, primary: true,
+       roles: %w{web app db redmine}, primary: true,
        ssh_options: {
          # user: 'user_name', # overrides user setting above
          keys: %w(~/.ssh/id_rsa),
