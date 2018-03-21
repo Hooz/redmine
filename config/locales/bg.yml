@@ -380,7 +380,6 @@ bg:
   field_default_assigned_to: Назначение по подразбиране
 
   setting_app_title: Заглавие
-  setting_app_subtitle: Описание
   setting_welcome_text: Допълнителен текст
   setting_default_language: Език по подразбиране
   setting_login_required: Изискване за вход в Redmine
@@ -417,7 +416,7 @@ bg:
   setting_display_subprojects_issues: Задачите от подпроектите по подразбиране се показват в главните проекти
   setting_enabled_scm: Разрешена SCM
   setting_mail_handler_body_delimiters: Отрязване на e-mail-ите след един от тези редове
-  setting_mail_handler_enable_regex_delimiters: Разрешаванен на регулярни изрази
+  setting_mail_handler_enable_regex: Разрешаванен на регулярни изрази
   setting_mail_handler_api_enabled: Разрешаване на WS за входящи e-mail-и
   setting_mail_handler_api_key: API ключ за входящи e-mail-и
   setting_sys_api_key: API ключ за хранилища
@@ -491,7 +490,6 @@ bg:
   permission_edit_own_issue_notes: Редактиране на собствени бележки
   permission_view_private_notes: Разглеждане на лични бележки
   permission_set_notes_private: Установяване на бележките лични
-  permission_move_issues: Преместване на задачи
   permission_delete_issues: Изтриване на задачи
   permission_manage_public_queries: Управление на публичните заявки
   permission_save_queries: Запис на запитвания (queries)
@@ -1218,3 +1216,5 @@ bg:
   description_wiki_subpages_reassign: Изберете нова родителска страница
   description_all_columns: Всички колони
   text_repository_identifier_info: 'Позволени са малки букви (a-z), цифри, тирета и _.<br />Промяна след създаването му не е възможна.'
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

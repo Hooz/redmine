@@ -278,7 +278,6 @@ uk:
   field_searchable: Вживається у пошуку
 
   setting_app_title: Назва додатку
-  setting_app_subtitle: Підзаголовок додатку
   setting_welcome_text: Текст привітання
   setting_default_language: Стандартна мова
   setting_login_required: Необхідна аутентифікація
@@ -759,7 +758,6 @@ uk:
   permission_edit_wiki_pages: Редагування wiki-сторінок
   permission_add_issue_watchers: Додати спостерігачів
   permission_view_gantt: Перегляд діаграми Ганта
-  permission_move_issues: Перенесення задач
   permission_manage_issue_relations: Управління зв'язуванням задач
   permission_delete_wiki_pages: Видалення wiki-сторінок
   permission_manage_boards: Управління форумами
@@ -1206,7 +1204,7 @@ uk:
   setting_timespan_format: Формат часового діапазону
   label_table_of_contents: Зміст
   setting_commit_logs_formatting: Застосувати форматування тексту для повідомлення
-  setting_mail_handler_enable_regex_delimiters: Використовувати регулярні вирази
+  setting_mail_handler_enable_regex: Використовувати регулярні вирази
   error_move_of_child_not_possible: 'Підзадача %{child} не може бути перенесена в новий проект: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Витрачений час не можна перенести на задачу, яка має бути видалена
   setting_timelog_required_fields: Обов'язкові поля для журналу часу
@@ -1231,3 +1229,5 @@ uk:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

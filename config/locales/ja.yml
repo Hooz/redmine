@@ -341,7 +341,6 @@ ja:
   field_cvs_module: モジュール
 
   setting_app_title: アプリケーションのタイトル
-  setting_app_subtitle: アプリケーションのサブタイトル
   setting_welcome_text: ウェルカムメッセージ
   setting_default_language: デフォルトの言語
   setting_login_required: 認証が必要
@@ -413,7 +412,6 @@ ja:
   permission_add_issue_notes: 注記の追加
   permission_edit_issue_notes: 注記の編集
   permission_edit_own_issue_notes: 自身が記入した注記の編集
-  permission_move_issues: チケットの移動
   permission_delete_issues: チケットの削除
   permission_manage_public_queries: 公開クエリの管理
   permission_save_queries: クエリの保存
@@ -1220,7 +1218,7 @@ ja:
   setting_timespan_format: 時間の形式
   label_table_of_contents: 目次
   setting_commit_logs_formatting: コミットメッセージにテキスト書式を適用
-  setting_mail_handler_enable_regex_delimiters: 正規表現を使用
+  setting_mail_handler_enable_regex: 正規表現を使用
   error_move_of_child_not_possible: '子チケット %{child} を指定されたプロジェクトに移動できませんでした: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: 削除対象チケットへの作業時間の再割り当てはできません
   setting_timelog_required_fields: 作業時間の必須入力フィールド
@@ -1241,3 +1239,4 @@ ja:
   setting_timelog_accept_0_hours: 作業時間に0時間の入力を許可
   setting_timelog_max_hours_per_day: 1日・1人あたりの作業時間の上限
   label_x_revisions: "%{count}件の履歴"
+  error_can_not_delete_auth_source: この認証方式は使用されています。削除できません。

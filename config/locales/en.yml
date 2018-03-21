@@ -221,6 +221,7 @@ en:
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: "Spent time cannot be reassigned to an issue that is about to be deleted"
   warning_fields_cleared_on_bulk_edit: "Changes will result in the automatic deletion of values from one or more fields on the selected objects"
   error_exceeds_maximum_hours_per_day: "Cannot log more than %{max_hours} hours on the same day (%{logged_hours} hours have already been logged)"
+  error_can_not_delete_auth_source: "This authentication mode is in use and cannot be deleted."
 
   mail_subject_lost_password: "Your %{value} password"
   mail_body_lost_password: 'To change your password, click on the following link:'
@@ -378,7 +379,6 @@ en:
   field_default_assigned_to: Default assignee
 
   setting_app_title: Application title
-  setting_app_subtitle: Application subtitle
   setting_welcome_text: Welcome text
   setting_default_language: Default language
   setting_login_required: Authentication required
@@ -415,7 +415,7 @@ en:
   setting_display_subprojects_issues: Display subprojects issues on main projects by default
   setting_enabled_scm: Enabled SCM
   setting_mail_handler_body_delimiters: "Truncate emails after one of these lines"
-  setting_mail_handler_enable_regex_delimiters: "Enable regular expressions"
+  setting_mail_handler_enable_regex: "Enable regular expressions"
   setting_mail_handler_api_enabled: Enable WS for incoming emails
   setting_mail_handler_api_key: Incoming email WS API key
   setting_sys_api_key: Repository management WS API key
@@ -489,7 +489,6 @@ en:
   permission_edit_own_issue_notes: Edit own notes
   permission_view_private_notes: View private notes
   permission_set_notes_private: Set notes as private
-  permission_move_issues: Move issues
   permission_delete_issues: Delete issues
   permission_manage_public_queries: Manage public queries
   permission_save_queries: Save queries

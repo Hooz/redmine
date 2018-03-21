@@ -271,7 +271,6 @@ sk:
   field_comments_sorting: Zobraziť komentáre
 
   setting_app_title: Názov aplikácie
-  setting_app_subtitle: Podtitulok aplikácie
   setting_welcome_text: Uvítací text
   setting_default_language: Predvolený jazyk
   setting_login_required: Vyžadovaná autentifikácia
@@ -743,7 +742,6 @@ sk:
   permission_edit_wiki_pages: Úprava wikistránok
   permission_add_issue_watchers: Pridávanie pozorovateľov
   permission_view_gantt: Zobrazenie Ganttovho grafu
-  permission_move_issues: Presun úloh
   permission_manage_issue_relations: Správa prepojení medzi úlohami
   permission_delete_wiki_pages: Mazanie wikistránok
   permission_manage_boards: Správa diskusií
@@ -1197,7 +1195,7 @@ sk:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1225,3 +1223,5 @@ sk:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

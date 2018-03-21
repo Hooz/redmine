@@ -316,7 +316,6 @@ cs:
   field_visible: Viditelný
 
   setting_app_title: Název aplikace
-  setting_app_subtitle: Podtitulek aplikace
   setting_welcome_text: Uvítací text
   setting_default_language: Výchozí jazyk
   setting_login_required: Autentifikace vyžadována
@@ -387,7 +386,6 @@ cs:
   permission_add_issue_notes: Přidávání poznámek
   permission_edit_issue_notes: Upravování poznámek
   permission_edit_own_issue_notes: Upravování vlastních poznámek
-  permission_move_issues: Přesouvání úkolů
   permission_delete_issues: Mazání úkolů
   permission_manage_public_queries: Správa veřejných dotazů
   permission_save_queries: Ukládání dotazů
@@ -1205,7 +1203,7 @@ cs:
   setting_timespan_format: Formát časového intervalu
   label_table_of_contents: Obsah
   setting_commit_logs_formatting: Použij textové formátování pro popisky comitů
-  setting_mail_handler_enable_regex_delimiters: Povol regulární výrazy
+  setting_mail_handler_enable_regex: Povol regulární výrazy
   error_move_of_child_not_possible: 'Dílčí úkol %{child} nemůže být přesunut do nového
     projektu: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Strávený čas nemůže
@@ -1233,3 +1231,5 @@ cs:
   setting_timelog_accept_0_hours: Akceptovat zápis času 0hod
   setting_timelog_max_hours_per_day: Maximum hodin, které mohou být vykázány jedním uživatelem za jeden den
   label_x_revisions: "%{count} revizí"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

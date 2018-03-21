@@ -334,7 +334,6 @@ ko:
   field_group_by: 결과를 묶어 보여줄 기준
 
   setting_app_title: 레드마인 제목
-  setting_app_subtitle: 레드마인 부제목
   setting_welcome_text: 환영 메시지
   setting_default_language: 기본 언어
   setting_login_required: 인증이 필요함
@@ -388,7 +387,6 @@ ko:
   permission_add_issue_notes: 덧글 추가
   permission_edit_issue_notes: 덧글 편집
   permission_edit_own_issue_notes: 내 덧글 편집
-  permission_move_issues: 일감 이동
   permission_delete_issues: 일감 삭제
   permission_manage_public_queries: 공용 검색양식 관리
   permission_save_queries: 검색양식 저장
@@ -1246,7 +1244,7 @@ ko:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1274,3 +1272,5 @@ ko:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

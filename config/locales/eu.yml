@@ -299,7 +299,6 @@ eu:
   field_sharing: Partekatzea
 
   setting_app_title: Aplikazioaren izenburua
-  setting_app_subtitle: Aplikazioaren azpizenburua
   setting_welcome_text: Ongietorriko testua
   setting_default_language: Lehenetsitako hizkuntza
   setting_login_required: Autentikazioa derrigorrezkoa
@@ -363,7 +362,6 @@ eu:
   permission_add_issue_notes: Oharrak gehitu
   permission_edit_issue_notes: Oharrak aldatu
   permission_edit_own_issue_notes: Nork bere oharrak aldatu
-  permission_move_issues: Zereginak mugitu
   permission_delete_issues: Zereginak ezabatu
   permission_manage_public_queries: Galdera publikoak kudeatu
   permission_save_queries: Galderak gorde
@@ -1208,7 +1206,7 @@ eu:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1236,3 +1234,5 @@ eu:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

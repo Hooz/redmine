@@ -369,7 +369,6 @@ lt:
   field_remote_ip: IP adresas
 
   setting_app_title: Programos pavadinimas
-  setting_app_subtitle: Programos paantraštė
   setting_welcome_text: Pasveikinimas
   setting_default_language: Numatytoji kalba
   setting_login_required: Reikalingas autentiškumo nustatymas
@@ -470,7 +469,6 @@ lt:
   permission_edit_own_issue_notes: Redaguoti savo pastabas
   permission_view_private_notes:  Matyti privačias pastabas
   permission_set_notes_private: Nustatyti pastabas privačiomis
-  permission_move_issues: Perkelti darbus
   permission_delete_issues: Pašalinti darbus
   permission_manage_public_queries: Valdyti viešas užklausas
   permission_save_queries: Išsaugoti užklausas
@@ -890,7 +888,7 @@ lt:
   label_version_sharing_none: Nesidalinama
   label_version_sharing_descendants: Su sub-projektais
   label_version_sharing_hierarchy: Su projekto hierarchija
-  label_version_sharing_tree: WiSu projekto medžiu
+  label_version_sharing_tree: Su projekto medžiu
   label_version_sharing_system: Su visais projektais
   label_update_issue_done_ratios: Atnaujinti darbo atlikimo progresą
   label_copy_source: Šaltinis
@@ -1197,8 +1195,8 @@ lt:
   setting_timespan_format: Laiko tarpo formatas
   label_table_of_contents: Turinio lentelė
   setting_commit_logs_formatting: Pritaikyti teksto formatavimą patvirtinimo žinutėms
-  setting_mail_handler_enable_regex_delimiters: Įjungti reguliariuosius reiškinius
-  error_move_of_child_not_possible: 'Darbo dalis %{child} negali būti perkelta į naują 
+  setting_mail_handler_enable_regex: Įjungti reguliariuosius reiškinius
+  error_move_of_child_not_possible: 'Darbo dalis %{child} negali būti perkelta į naują
     projektą: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Dirbtas laikas negali būti
     iš naujo paskirtas darbui, kuris bus ištrintas
@@ -1225,3 +1223,5 @@ lt:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

@@ -277,7 +277,6 @@ ro:
   field_content: Conținut
 
   setting_app_title: Titlu aplicație
-  setting_app_subtitle: Subtitlu aplicație
   setting_welcome_text: Text de întâmpinare
   setting_default_language: Limba implicita
   setting_login_required: Necesita autentificare
@@ -328,7 +327,6 @@ ro:
   permission_add_issue_notes: Adaugă note
   permission_edit_issue_notes: Editează note
   permission_edit_own_issue_notes: Editează notele proprii
-  permission_move_issues: Mută tichete
   permission_delete_issues: Șterge tichete
   permission_manage_public_queries: Editează căutările implicite
   permission_save_queries: Salvează căutările
@@ -1202,7 +1200,7 @@ ro:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1230,3 +1228,5 @@ ro:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.
