@@ -316,7 +316,6 @@ zh:
   field_visible: 可见的
 
   setting_app_title: 应用程序标题
-  setting_app_subtitle: 应用程序子标题
   setting_welcome_text: 欢迎文字
   setting_default_language: 默认语言
   setting_login_required: 要求认证
@@ -387,7 +386,6 @@ zh:
   permission_add_issue_notes: 添加说明
   permission_edit_issue_notes: 编辑说明
   permission_edit_own_issue_notes: 编辑自己的说明
-  permission_move_issues: 移动问题
   permission_delete_issues: 删除问题
   permission_manage_public_queries: 管理公开的查询
   permission_save_queries: 保存查询
@@ -1199,7 +1197,7 @@ zh:
   setting_timespan_format: 时间格式设置
   label_table_of_contents: 目录
   setting_commit_logs_formatting: 在提交日志消息时，应用文本格式
-  setting_mail_handler_enable_regex_delimiters: 启用正则表达式
+  setting_mail_handler_enable_regex: 启用正则表达式
   error_move_of_child_not_possible: '子任务 %{child} 不能移动到新项目：%{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: 已用耗时不能重新分配到即将被删除的任务里。
   setting_timelog_required_fields: 工时登记必填字段
@@ -1223,3 +1221,5 @@ zh:
   setting_timelog_accept_0_hours: 允许计入0小时工时
   setting_timelog_max_hours_per_day: 每用户每天最大可计入工时上限
   label_x_revisions: "%{count} 修订"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

@@ -290,7 +290,6 @@ el:
   field_group_by: Ομαδικά αποτελέσματα από
 
   setting_app_title: Τίτλος εφαρμογής
-  setting_app_subtitle: Υπότιτλος εφαρμογής
   setting_welcome_text: Κείμενο υποδοχής
   setting_default_language: Προεπιλεγμένη γλώσσα
   setting_login_required: Απαιτείται πιστοποίηση
@@ -344,7 +343,6 @@ el:
   permission_add_issue_notes: Προσθήκη σημειώσεων
   permission_edit_issue_notes: Επεξεργασία σημειώσεων
   permission_edit_own_issue_notes: Επεξεργασία δικών μου σημειώσεων
-  permission_move_issues: Μεταφορά θεμάτων
   permission_delete_issues: Διαγραφή θεμάτων
   permission_manage_public_queries: Διαχείριση δημόσιων αναζητήσεων
   permission_save_queries: Αποθήκευση αναζητήσεων
@@ -1207,7 +1205,7 @@ el:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1235,3 +1233,5 @@ el:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

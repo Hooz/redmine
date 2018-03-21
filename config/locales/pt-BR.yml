@@ -298,7 +298,6 @@ pt-BR:
   field_parent_title: Página pai
 
   setting_app_title: Título da aplicação
-  setting_app_subtitle: Subtítulo da aplicação
   setting_welcome_text: Texto de boas-vindas
   setting_default_language: Idioma padrão
   setting_login_required: Exigir autenticação
@@ -769,7 +768,6 @@ pt-BR:
   permission_edit_wiki_pages: Editar páginas wiki
   permission_add_issue_watchers: Adicionar observadores
   permission_view_gantt: Ver gráfico gantt
-  permission_move_issues: Mover tarefas
   permission_manage_issue_relations: Gerenciar relacionamentos de tarefas
   permission_delete_wiki_pages: Excluir páginas wiki
   permission_manage_boards: Gerenciar fóruns
@@ -1224,7 +1222,7 @@ pt-BR:
   setting_timespan_format: Formato de tempo
   label_table_of_contents: Índice
   setting_commit_logs_formatting: Aplicar formatação de texto às mensagens de commit
-  setting_mail_handler_enable_regex_delimiters: Ativar a utilização de expressões regulares
+  setting_mail_handler_enable_regex: Ativar a utilização de expressões regulares
   error_move_of_child_not_possible: 'A subtarefa %{child} não pode ser movida para o novo projeto: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: O tempo gasto não pode ser alterado numa tarefa que será apagada
   setting_timelog_required_fields: Campos obrigatórios para registro de horas
@@ -1248,3 +1246,5 @@ pt-BR:
   setting_timelog_accept_0_hours: Aceitar registros de horas com 0 horas
   setting_timelog_max_hours_per_day: Máximo de horas que podem ser registradas por dia por usuário
   label_x_revisions: "%{count} revisões"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

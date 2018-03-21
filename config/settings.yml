@@ -21,8 +21,6 @@
 
 app_title:
   default: Redmine
-app_subtitle:
-  default: Project management
 welcome_text:
   default:
 login_required:
@@ -186,6 +184,8 @@ notified_events:
 mail_handler_body_delimiters:
   default: ''
 mail_handler_enable_regex_delimiters:
+  default: 0
+mail_handler_enable_regex_excluded_filenames:
   default: 0
 mail_handler_excluded_filenames:
   default: ''

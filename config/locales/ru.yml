@@ -809,7 +809,6 @@ ru:
   permission_manage_subtasks: Управление подзадачами
   permission_manage_versions: Управление версиями
   permission_manage_wiki: Управление Wiki
-  permission_move_issues: Перенос задач
   permission_protect_wiki_pages: Блокирование wiki-страниц
   permission_rename_wiki_pages: Переименование wiki-страниц
   permission_save_queries: Сохранение запросов
@@ -835,7 +834,6 @@ ru:
   project_module_calendar: Календарь
 
   setting_activity_days_default: Количество дней, отображаемых в Действиях
-  setting_app_subtitle: Подзаголовок приложения
   setting_app_title: Название приложения
   setting_attachment_max_size: Максимальный размер вложения
   setting_autofetch_changesets: Автоматически следить за изменениями хранилища
@@ -1308,7 +1306,7 @@ ru:
   setting_timespan_format: Формат промежутка времени
   label_table_of_contents: Содержание
   setting_commit_logs_formatting: Использовать форматирование текста для комментариев хранилища
-  setting_mail_handler_enable_regex_delimiters: Использовать регулярные выражения
+  setting_mail_handler_enable_regex: Использовать регулярные выражения
   error_move_of_child_not_possible: 'Подзадача %{child} не может быть перемещена в новый
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Затраченное время не может быть переназначено на задачу, которая будет удалена
@@ -1334,3 +1332,5 @@ ru:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

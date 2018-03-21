@@ -330,7 +330,6 @@ sq:
   field_auth_source_ldap_filter: LDAP filter
 
   setting_app_title: Application title
-  setting_app_subtitle: Application subtitle
   setting_welcome_text: Welcome text
   setting_default_language: Default language
   setting_login_required: Authentication required
@@ -406,7 +405,6 @@ sq:
   permission_add_issue_notes: Add notes
   permission_edit_issue_notes: Edit notes
   permission_edit_own_issue_notes: Edit own notes
-  permission_move_issues: Move issues
   permission_delete_issues: Delete issues
   permission_manage_public_queries: Manage public queries
   permission_save_queries: Save queries
@@ -1203,7 +1201,7 @@ sq:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1231,3 +1229,5 @@ sq:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

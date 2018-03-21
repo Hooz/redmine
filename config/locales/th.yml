@@ -270,7 +270,6 @@ th:
   field_comments_sorting: แสดงความเห็น
 
   setting_app_title: ชื่อโปรแกรม
-  setting_app_subtitle: ชื่อโปรแกรมรอง
   setting_welcome_text: ข้อความต้อนรับ
   setting_default_language: ภาษาเริ่มต้น
   setting_login_required: ต้องป้อนผู้ใช้-รหัสผ่าน
@@ -743,7 +742,6 @@ th:
   permission_edit_wiki_pages: Edit wiki pages
   permission_add_issue_watchers: Add watchers
   permission_view_gantt: View gantt chart
-  permission_move_issues: Move issues
   permission_manage_issue_relations: Manage issue relations
   permission_delete_wiki_pages: Delete wiki pages
   permission_manage_boards: Manage boards
@@ -1204,7 +1202,7 @@ th:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1232,3 +1230,5 @@ th:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

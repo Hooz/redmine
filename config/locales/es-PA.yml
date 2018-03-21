@@ -717,7 +717,6 @@ es-PA:
   permission_manage_repository: Administrar repositorio
   permission_manage_versions: Administrar versiones
   permission_manage_wiki: Administrar wiki
-  permission_move_issues: Mover incidencias
   permission_protect_wiki_pages: Proteger páginas wiki
   permission_rename_wiki_pages: Renombrar páginas wiki
   permission_save_queries: Grabar consultas
@@ -741,7 +740,6 @@ es-PA:
   project_module_time_tracking: Control de tiempo
   project_module_wiki: Wiki
   setting_activity_days_default: Días a mostrar en la actividad de proyecto
-  setting_app_subtitle: Subtítulo de la aplicación
   setting_app_title: Título de la aplicación
   setting_attachment_max_size: Tamaño máximo del archivo
   setting_autofetch_changesets: Autorellenar los commits del repositorio
@@ -1237,7 +1235,7 @@ es-PA:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1265,3 +1263,5 @@ es-PA:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.

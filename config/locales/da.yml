@@ -286,7 +286,6 @@ da:
   field_default_value: Standardværdi
 
   setting_app_title: Applikationstitel
-  setting_app_subtitle: Applikationsundertekst
   setting_welcome_text: Velkomsttekst
   setting_default_language: Standardsporg
   setting_login_required: Sikkerhed påkrævet
@@ -752,7 +751,6 @@ da:
   permission_select_project_modules: Vælg projektmoduler
   permission_view_gantt: Se Gantt diagram
   permission_delete_messages: Slet beskeder
-  permission_move_issues: Flyt sager
   permission_edit_wiki_pages: Redigér wiki sider
   label_user_activity: "%{value}'s aktivitet"
   permission_manage_issue_relations: Administrér sags-relationer
@@ -1224,7 +1222,7 @@ da:
   setting_timespan_format: Time span format
   label_table_of_contents: Table of contents
   setting_commit_logs_formatting: Apply text formatting to commit messages
-  setting_mail_handler_enable_regex_delimiters: Enable regular expressions
+  setting_mail_handler_enable_regex: Enable regular expressions
   error_move_of_child_not_possible: 'Subtask %{child} could not be moved to the new
     project: %{errors}'
   error_cannot_reassign_time_entries_to_an_issue_about_to_be_deleted: Spent time cannot
@@ -1252,3 +1250,5 @@ da:
   setting_timelog_accept_0_hours: Accept time logs with 0 hours
   setting_timelog_max_hours_per_day: Maximum hours that can be logged per day and user
   label_x_revisions: "%{count} revisions"
+  error_can_not_delete_auth_source: This authentication mode is in use and cannot be
+    deleted.
