@@ -6,7 +6,7 @@ class CreateEmailAddresses < ActiveRecord::Migration[4.2]
       t.column :is_default, :boolean, :null => false, :default => false
       t.column :notify, :boolean, :null => false, :default => true
       t.column :created_on, :timestamp, :null => false
-      t.column :updated_on, :timestamp, :null => false
+      t.column :updated_on, :timestamp, :null => false, default: -> { 'NOW()' }
     end
   end
 end
